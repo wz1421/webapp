@@ -24,7 +24,7 @@ def sign_up():
 
         #can use this to prevent unauthorised personnel from signing up
         if len(email) < 4:
-            flash('Unauthorised to signup for an account.', category='error')
+            flash('Unauthorised to sign up for an account, must be authorisied staff of the hospital.', category='error')
         elif len(firstName) < 1:
             flash('Please enter your name', category='error')
         elif password1 != password2:
