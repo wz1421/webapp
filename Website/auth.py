@@ -10,9 +10,9 @@ def login():
     #adding if statements
     return render_template("login.html", text="Please log in with your work email",boolean=True)
 
-@auth.route('/logout')
-def logout():
-    return "<p>Logout</p>"
+@auth.route('/babydata')
+def baby_data():
+    return render_template(baby_data.html,text="Baby 1")
 
 @auth.route('/sign-up', methods=['GET','POST'])
 def sign_up():
@@ -24,7 +24,7 @@ def sign_up():
 
         #can use this to prevent unauthorised personnel from signing up
         if len(email) < 4:
-            flash('Email must be greater than 4 characters.', category='error')
+            flash('Unauthorised to signup for an account.', category='error')
         elif len(firstName) < 1:
             flash('Please enter your name', category='error')
         elif password1 != password2:
