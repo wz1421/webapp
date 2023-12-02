@@ -1,9 +1,43 @@
-{% extends "base.html" %}
-{% block title %}Login{% endblock %}
-{% block content %}
-<h1>Login Page</h1>
-{{ text }}
-{% if boolean == True %}
-Yes you are authorised to access this page.
-{% endif %}
-{% endblock %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+        <link href="./css/main.css" rel="stylesheet" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="name"></div>
+            <div class="login_button">
+                <span class="login_text">Login</span>
+            </div>
+            <span class="user_pass_text" style="top:260px">Username</span>
+            <div class="text_box" style="top:330px"></div>
+            <span class="user_pass_text">Password</span>
+            <div class="text_box"></div>
+            <span class="forgot_pass_text">Forgot password ? Click here to reset</span>
+            <span class="or_">or</span>
+            <div class="name"></div>
+            <div class="name"></div>
+            <span class="alt_text">Don't have an account ?</span>
+            <span class="alt_text" style="left:56.5% ; color: rgba(0,164,216);">Create an account</span>
+            <div class="name"></div>
+            <span class="web_name">Lorem ipsum</span>
+            <div class="line"></div>
+            <div class="line" style="left:43%"></div>
+        </div>
+    </body>
+</html>
+
+<!--
+*My notes*    
+Most components have an opening and closing tag, e.g.
+  <div> content goes inside </div>
+    ^opening tag              ^closing tag
+
+Sometimes, opening and closing are done in a single tag, e.g.
+  <link href="myurliscool.com" />
+                               ^this / character closes the tag
+
+-->

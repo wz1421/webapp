@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.container {
+  width: 100%;
+  height: 1024px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.name {
+  color: #fff;
+}
+.text_box {
+  width: 522px;
+  height: 69px;
+  background: rgba(217,217,217,1);
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.login_button {
+  width: 250px;
+  height: 69px;
+  background: rgba(217,217,217,1);
+  opacity: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: auto;
+  top: 50%;
+  transform: translateY(215%);
+}
+.user_pass_text {
+  width: 150px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 43%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 25px;
+  opacity: 1;
+  text-align: center;
+  align-items: center;
+}
+.login_text {
+  color: rgba(0,0,0,1);
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 25px;
+  opacity: 1;
+  text-align: center;
+}
+.forgot_pass_text {
+  width: 305px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 15px;
+  opacity: 1;
+  text-align: center;
+}
+.or_ {
+  width: 15px;
+  color: rgb(179,179,179);
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, 1000%);
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 15px;
+  opacity: 1;
+  text-align: center;
+}
+.name {
+  color: #fff;
+}
+
+.alt_text {
+  width: 227px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 82%;
+  left: 45.5%;
+  transform: translate(-50%, -50%);
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.name {
+  color: #fff;
+}
+
+.web_name {
+  width: 178px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 26px;
+  left: 73px;
+  font-family: Inter;
+  font-weight: Light;
+  font-size: 25px;
+  opacity: 1;
+  text-align: center;
+}
+.line {
+  position: absolute;
+  top: 75.1%;
+  left: 57%;
+  transform: translate(-50%, 1000%);
+  width: 200px;
+  border-top: 1px solid #979595;
+}
