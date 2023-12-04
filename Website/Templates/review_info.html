@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Add baby info{% endblock %}
+{% block content %}
+<form method="POST">
+    <h2 align="center">Add baby information</h2>
+</div>
+
+    <h3 align="left">Review Information</h3>
+
+    {% for section, data in form_data.items() %}
+        <h3>{{ section }}</h3>
+        <ul>
+            {% for key, value in data.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="{{ url_for('auth.add_baby_info') }}">Go Back</a>
+</form>
+<h1></h1>
+{% endblock %}
