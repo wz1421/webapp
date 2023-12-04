@@ -13,6 +13,9 @@ def login():
 @auth.route('/babydata')
 def baby_data():
     return render_template(baby_data.html,text="Baby 1")
+@auth.route('/babyCategories')
+def baby_categories():
+    return render_template(babyCategories.html,text="Baby Categories")
 
 @auth.route('/sign-up', methods=['GET','POST'])
 def sign_up():
