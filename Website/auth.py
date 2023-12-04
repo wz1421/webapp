@@ -26,7 +26,7 @@ def sign_up():
         if len(email) < 4:
             flash('Unauthorised to sign up for an account, must be authorisied staff of the hospital.', category='error')
         elif len(firstName) < 1:
-            flash('Please enter your name', category='error')
+            flash('Glucose level too high/low', category='error')
         elif password1 != password2:
             flash('Passwords don\'t match.', category='error')
         elif len(password1) < 7:
