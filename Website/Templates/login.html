@@ -3,29 +3,36 @@
 <html>
     <head>
         <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-        <link href="./css/main.css" rel="stylesheet" />
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
+        <!-- <link rel="stylesheet" type="text/css" href="../static/styles/login.css"> -->
         <title>Document</title>
     </head>
     <body>
         <div class="container">
-            <div class="name"></div>
-            <div class="login_button">
-                <span class="login_text">Login</span>
+            <div class="center_userpass_group" style="padding-top: 5%;">
+                <div class="user_pass_group">
+                    <span class="user_pass_text">Username</span>
+                    <input class="text_box" />
+                </div>
+                <div class="user_pass_group" style="padding-top: 0%;">
+                    <span class="user_pass_text">Password</span>
+                    <input class="text_box" type="password" />
+                </div>
+                <span class="forgot_pass_text">Forgot password ? Click here to reset</span>
+                <button class="login_button">
+                    Login
+                </button>
+            </div>   
+            <div style="display: flex ; flex-direction: row ; align-items: center ; justify-content:center; margin-top: 2.5%;">
+                <div class="line"></div> 
+                <span class="or_">or</span>
+                <div class="line" style="left:43%"></div>
             </div>
-            <span class="user_pass_text" style="top:260px">Username</span>
-            <div class="text_box" style="top:330px"></div>
-            <span class="user_pass_text">Password</span>
-            <div class="text_box"></div>
-            <span class="forgot_pass_text">Forgot password ? Click here to reset</span>
-            <span class="or_">or</span>
-            <div class="name"></div>
-            <div class="name"></div>
-            <span class="alt_text">Don't have an account ?</span>
-            <span class="alt_text" style="left:56.5% ; color: rgba(0,164,216);">Create an account</span>
-            <div class="name"></div>
-            <span class="web_name">Lorem ipsum</span>
-            <div class="line"></div>
-            <div class="line" style="left:43%"></div>
+            <div style="display: flex ; flex-direction: row ; align-items: center ; justify-content:center; margin-top: 1.5%;">
+                <span class="alt_text">Don't have an account? </span>
+                <span class="alt_text" style="margin-left:1% ; color: rgba(0,164,216);">Create an account</span>
+            </div>
+
         </div>
     </body>
 </html>
