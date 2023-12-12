@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glucose Level Monitoring</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+#chart {
+    width: 100%;
+    height: 400px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Glucose Level Monitoring</h1>
+    <canvas id="chart"></canvas>
+
+    <label for="timeValues">Enter time values:</label>
+    <input type="text" id="timeValues" value="0,1,2,3,4"><br><br>
+
+    <label for="glucoseValues">Enter glucose levels:</label>
+    <input type="text" id="glucoseValues" value="0,2,4,6,8"><br><br>
+
+    <button onclick="updateGraph()">Update Graph</button>
+</div>
+
+<script>
+// Initial Chart
+var ctx = document.getElementById('chart').getContext('2d');
+var glucoseChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [0,1,2,3,4], // Initial X axis values
+        datasets: [{
+            label: 'Glucose Level',
+            data: [0,2,4,6,8], // Initial Y axis values
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Function to update the graph based on user input
+function updateGraph() {
+    var xValues = document.getElementById('timeValues').value.split(',').map(Number);
+    var yValues = document.getElementById('glucoseValues').value.split(',').map(Number);
+
+    glucoseChart.data.labels = xValues;
+    glucoseChart.data.datasets[0].data = yValues;
+    glucoseChart.update();
+}
+</script>
+
+</body>
+</html>
