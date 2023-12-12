@@ -10,3 +10,7 @@ def home():
 @views.route('/babydata')
 def babydata():
     return render_template("babydata.html")
+
+
+def plot():
+    return render_template("plot.html")
