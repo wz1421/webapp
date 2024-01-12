@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}Add baby info{% endblock %}
+{% block content %}
+<form method="POST">
+    <h2 align="center">Add baby information</h2>
+</div>
+
+    <h3 align="left">Basic Information</h3>
+    </div>
+<div class="form-group">
+    <label for="mrn">Medical Record Number (MRN)</label>
+    <input type="number" class="form-control" id="mrn" name="1a. MRN" placeholder="Enter Medical Record Number"
+    />
+</div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" name="1b. Last Name" placeholder="Enter last name"
+        />
+
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="1c. First Name" placeholder="Enter first name"
+        />
+    </div>
+
+    <div class="form-group">
+        Gender</label>
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="female" name="1d. Gender" value="female" checked>
+            <label class="form-check-label" for="female">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="male" name="1d. Gender" value="male">
+            <label class="form-check-label" for="male">Male</label>
+        </div>
+        </div>
+
+     <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" class="form-control" id="dob" name="1e. Date of Birth">
+    </div>
+
+    <div class="form-group">
+        <label for="timeOfBirth">Time of Birth</label>
+        <input type="time" class="form-control" id="timeOfBirth" name="1f. Time of Birth">
+    </div>
+        </div>
+
+<div class="form-group">
+    <label for="birthWeight">Birth Weight (grams)</label>
+    <input type="number" class="form-control" id="birthWeight" name="1g. Birth Weight" placeholder="Enter Birth Weight"
+    />
+</div>
+
+    <div class="form-group">
+    <label for="birthLength">Birth Length (cm)</label>
+    <input type="number" class="form-control" id="birthLength" name="1h. Birth Length" placeholder="Enter Birth Length"
+    />
+</div>
+
+    <h3 align="left">Parent/Guardian Information</h3>
+    </div>
+
+        <div class="form-group">
+        <label for="motherName">Mother's name</label>
+        <input type="text" class="form-control" id="motherName" name="2a. Mother Name" placeholder="Enter Mother's name"
+        />
+    </div>
+
+    <div class="form-group">
+    <label for="pContact">Parent Contact Information</label>
+    <input type="number" class="form-control" id="pContact" name="2b. Parent Contact" placeholder="Enter Parent's Contact Number"
+    />
+</div>
+
+    <h3 align="left">Information of doctor in charge</h3>
+    <div class="form-group">
+        <label for="doctorName">Doctor Name</label>
+        <input type="text" class="form-control" id="doctorName" name="3a. Doctor Name" placeholder="Enter doctor in charge"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="doctorEmail">Doctor Email</label>
+        <input type="email" class="form-control" id="doctorEmail" name="3b. Doctor Email" placeholder="Enter internal email address of doctor in charge"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="doctorNum">Doctor Number</label>
+        <input type="number" class="form-control" id="doctorNum" name="3c. Doctor Contact Number" placeholder="Enter emergency contact number of doctor in charge"
+        />
+    </div>
+
+
+    <br />
+    <button type="submit" class="btn btn-primary">Save and Continue</button>
+</form>
+<h1></h1>
+{% endblock %}
