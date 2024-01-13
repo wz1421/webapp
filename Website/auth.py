@@ -4,11 +4,18 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 #Blueprint of our applicatio-auth blue print
 auth = Blueprint('auth',__name__)
 
+@auth.route('/', methods=['GET','POST'])
 @auth.route('/login', methods=['GET','POST'])
 def login():
-    #way to add texts to the page
-    #adding if statements
-    return render_template("login.html", text="Please log in with your work email",boolean=True)
+    error = None
+
+    if request.method == "POST":
+        # TODO: Properly authenticate
+        if not (request.form["username"] == "admin" and request.form["password"] == "admin"):
+            error = "Incorrect username or password"
+        else:
+            return redirect(url_for("auth.baby_data"))
+    return render_template("login.html", error=error)
 
 @auth.route('/babydata')
 def baby_data():
@@ -39,7 +46,6 @@ def sign_up():
     data = request.form
     print(data) #access info from the server that s been submitted
     return render_template("sign_up.html")
-
 
 @auth.route('/add-baby-info', methods=['GET','POST'])
 def add_baby_info():
@@ -103,5 +109,3 @@ def infant_of_diabetic_mother():
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
     return render_template("smallBaby.html")
-
-
