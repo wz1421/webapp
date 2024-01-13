@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Baby categories{% endblock %}
 {%block content %}
+
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,21 +35,20 @@
         background-color: #f0f0f0;
         border: 1px solid #ccc;
     }
-    </style>
+</style>
 
-    <h2 align="center">Category: Infant Of Diabetic Mother</h2>
+<h2 align="center">Category: Infant Of Diabetic Mother</h2>
 </div>
 
-    <h3>Baby List:</h3>
-    </div>
+<h3>Baby List:</h3>
+</div>
 
-    <div class="category-container">
-        <a class="category-box">Baby A</a>
-        <a class="category-box">Baby B</a>
-        <a class="category-box">Baby C</a>
-
-    <a href="{{ url_for('auth.baby_categories') }}">Back</a>
+<div class="category-container">
+    <a class="category-box">Baby A</a>
+    <a class="category-box">Baby B</a>
+    <a class="category-box">Baby C</a>
 
 </div>
+
 <h1></h1>
 {% endblock %}

@@ -78,15 +78,12 @@ def baby_categories():
         selected_category = request.form.get('category')
 
         if selected_category == 'prematureBaby':
-            session['baby_categories'] = {'category': 'Premature Baby'}
             return redirect(url_for('auth.premature_baby'))
 
         elif selected_category == 'infantOfDiabeticMother':
-            session['baby_categories'] = {'category': 'Infant Of A Diabetic Mother'}
             return redirect(url_for('auth.infant_of_diabetic_mother'))
 
         elif selected_category == 'smallBaby':
-            session['baby_categories'] = {'category': 'Small Baby'}
             return redirect(url_for('auth.small_baby'))
 
     return render_template('baby_categories.html')

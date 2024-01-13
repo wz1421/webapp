@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Baby categories{% endblock %}
-{%block content %}
+{% block content %}
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -37,46 +37,41 @@
 .category-box:hover {
   background-color: #ddd;
 }
-
 </style>
+
     <h2 align="center">Baby Categories</h2>
-    </div>
-    <div class="category-container">
-    <form method="POST" action="prematureBaby.html">
-        <button type="submit" class="category-box">
-            <div>
-                <strong>Premature Baby</strong>
-                <ul>
-                    <li>High brain to body mass ratio leads with corresponding increase in glucose consumption</li>
-                    <li>Failure of counter regulation</li>
-                    <li>Immaturity of hepatic enzyme systems</li>
-                </ul>
-            </div>
-        </button>
-    </form>
+</div>
 
-    <form method="POST" action="infantOfDiabeticMother.html">
-        <button type="submit" class="category-box">
-            <div>
-                <strong>Infant Of A Diabetic Mother</strong>
-                <ul>
-                    <li>Low blood sugar levels upon birth due to overproduction of insulin</li>
-                </ul>
-            </div>
-        </button>
-    </form>
+<div class="category-container">
+    <a href="{{ url_for('auth.baby_categories', category='prematureBaby') }}" class="category-box">
+        <div>
+            <strong>Premature Baby</strong>
+            <ul>
+                <li>High brain to body mass ratio leads with corresponding increase in glucose consumption</li>
+                <li>Failure of counter regulation</li>
+                <li>Immaturity of hepatic enzyme systems</li>
+            </ul>
+        </div>
+    </a>
 
-    <form method="POST" action="smallBaby.html">
-        <button type="submit" class="category-box">
-            <div>
-                <strong>Small Baby</strong>
-                <ul>
-                    <li>Low blood sugar levels due to low glycogen stores</li>
-                    <li>High brain to body mass ratio leads with corresponding increase in glucose consumption</li>
-                </ul>
-            </div>
-        </button>
-    </form>
+    <a href="{{  url_for('auth.baby_categories', category='infantOfDiabeticMother') }}" class="category-box">
+        <div>
+            <strong>Infant Of A Diabetic Mother</strong>
+            <ul>
+                <li>Low blood sugar levels upon birth due to overproduction of insulin</li>
+            </ul>
+        </div>
+    </a>
+
+    <a href="{{  url_for('auth.baby_categories', category='smallBaby') }}" class="category-box">
+        <div>
+            <strong>Small Baby</strong>
+            <ul>
+                <li>Low blood sugar levels due to low glycogen stores</li>
+                <li>High brain to body mass ratio leads with corresponding increase in glucose consumption</li>
+            </ul>
+        </div>
+    </a>
 </div>
 <h1></h1>
 {% endblock %}
