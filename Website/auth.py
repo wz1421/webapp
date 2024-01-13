@@ -70,4 +70,9 @@ def review_info():
 
 @auth.route('/success')
 def success():
-    return render_template("success.html",text="Baby 1")
+    return render_template("success.html", text="Baby 1")
+
+
+@auth.route('/plot-plot', methods=['GET', 'POST'])
+def plot():
+    return render_template("plotplot.html")
