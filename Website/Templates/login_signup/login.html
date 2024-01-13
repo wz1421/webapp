@@ -1,0 +1,54 @@
+<!-- {% extends "base.html" %} -->
+<!-- {% block title %}Home{% endblock %} -->
+<!-- {%block content %} -->
+<htmtl>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link    
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            crossorigin="anonymous"
+        />
+        <!-- <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" /> -->
+        <link rel="stylesheet" type="text/css" href="../static/styles/login.css">
+    </head>
+    <body>
+        <div style="display:flex; flex-direction: row; width: 100%; height: 100%; overflow: hidden;">
+            <div class="container" style="justify-content: center;margin-top: 4%;">
+                <h1 style="align-self: center; margin-bottom: -15%;text-align: center; color:#121212">
+                    Baby Glucose<br/>Monitoring System
+                </h1>
+                <img src="../static/login_graphic.svg" />
+            </div>
+            <div class="container">
+                <div class="login_container">
+                    <h2>Welcome!</h2>
+                    <h6 style="margin-top:-2%; margin-bottom: 12%">
+                        Sign in with your hospital ID.
+                    </h6>
+                    <form action="" method="post">
+                        <input class="text_box" placeholder="Username" name="username" value="{{
+                            request.form.username }}"/>
+                        <input class="text_box" type="password" placeholder="Password" name="password" value="{{
+                            request.form.password }}" style="margin-bottom: 2%;"/>
+                        <!-- <span class="forgot_pass_text"> -->
+                            <!-- Forgot password? Click here to reset -->
+                        <!-- </span> -->
+                        <input class="login_button" type="submit" value="Login" />
+                    </form>
+                    {% if error %}
+                        <p class="error"><strong>{{ error }}</strong>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </body>
+</htmtl>
+<!-- {% endblock %} -->

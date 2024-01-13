@@ -8,7 +8,7 @@ auth = Blueprint('auth',__name__)
 def login():
     #way to add texts to the page
     #adding if statements
-    return render_template("login.html", text="Please log in with your work email",boolean=True)
+    return render_template("login_signup/login.html", text="Please log in with your work email", boolean=True)
 
 @auth.route('/babydata')
 def baby_data():
@@ -34,11 +34,11 @@ def sign_up():
         else:
             #add user to database
             flash('Account created! Welcome.', category='success')
-    return render_template("sign_up.html")
+    return render_template("login_signup/sign_up.html")
     #submit button on the sign up page is a post request
     data = request.form
     print(data) #access info from the server that s been submitted
-    return render_template("sign_up.html")
+    return render_template("login_signup/sign_up.html")
 
 
 @auth.route('/add-baby-info', methods=['GET','POST'])
@@ -51,7 +51,7 @@ def add_baby_info():
         session['baby_information'] = request.form.to_dict()
         return redirect(url_for('auth.add_med_history'))
 
-    return render_template("add_baby_info.html",baby_information=baby_information)
+    return render_template("updates/add_baby_info.html", baby_information=baby_information)
 
 @auth.route('/add-med-history', methods=['GET','POST'])
 def add_med_history():
@@ -62,7 +62,7 @@ def add_med_history():
     if request.method =='POST':
         session['medical_history'] = request.form.to_dict()
         return redirect(url_for('auth.review_info'))
-    return render_template("add_med_history.html",medical_history=medical_history)
+    return render_template("updates/add_med_history.html", medical_history=medical_history)
 
 @auth.route('/review-info', methods=['GET','POST'])
 def review_info():
@@ -80,30 +80,38 @@ def review_info():
     elif 'back_to_baby_info' in request.args:  # Check for back button press
         return redirect(url_for('auth.add_baby_info', baby_information=json.dumps(baby_information)))
     else:
-        return render_template('review_info.html', form_data=form_data)
+        return render_template('updates/review_info.html', form_data=form_data)
 
 @auth.route('/success',  methods=['GET','POST'])
 def success():
-    return render_template("success.html", text="Baby 1")
-
+    if request.method == 'POST':
+        return redirect(url_for('views.home'))
+    return render_template("view/success.html")
 
 @auth.route('/plot-plot', methods=['GET', 'POST'])
 def plot():
     return render_template("plotplot.html")
 
+
 @auth.route('/baby-categories', methods=['GET','POST'])
 def baby_categories():
-    return render_template('baby_categories.html')
+    return render_template('categories/baby_categories.html')
 
 @auth.route('/premature-baby', methods=['GET','POST'])
 def premature_baby():
-    return render_template("prematureBaby.html")
+    if 'back_to_baby_cat' in request.args:
+        return redirect(url_for('auth.baby_categories'))
+    return render_template("categories/prematureBaby.html")
 
 @auth.route('/infant-of-diabetic-mother', methods=['GET','POST'])
 def infant_of_diabetic_mother():
-    return render_template("infantOfDiabeticMother.html")
+    if 'back_to_baby_cat' in request.args:
+         return redirect(url_for('auth.baby_categories'))
+    return render_template("categories/infantOfDiabeticMother.html")
 
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
-    return render_template("smallBaby.html")
+    if 'back_to_baby_cat' in request.args:
+         return redirect(url_for('auth.baby_categories'))
+    return render_template("categories/smallBaby.html")
 
