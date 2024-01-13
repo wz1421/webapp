@@ -90,12 +90,18 @@ def baby_categories():
 
 @auth.route('/premature-baby', methods=['GET','POST'])
 def premature_baby():
+    if request.method == 'POST':
+        return redirect(url_for('views.prematureBaby'))
     return render_template("prematureBaby.html")
 
 @auth.route('/infant-of-diabetic-mother', methods=['GET','POST'])
 def infant_of_diabetic_mother():
+    if request.method == 'POST':
+        return redirect(url_for('views.infantOfDiabeticMother'))
     return render_template("infantOfDiabeticMother.html")
 
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
+    if request.method == 'POST':
+        return redirect(url_for('views.smallBaby'))
     return render_template("smallBaby.html")
