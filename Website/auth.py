@@ -89,9 +89,7 @@ def success():
 
 @auth.route('/plot-plot', methods=['GET', 'POST'])
 def plot():
-    if request.method == 'POST':
-        return redirect(url_for('views.home'))
-    return render_template("success.html")
+    return render_template("plotplot.html")
 
 @auth.route('/baby-categories', methods=['GET','POST'])
 def baby_categories():
