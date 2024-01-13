@@ -39,6 +39,8 @@ def sign_up():
     data = request.form
     print(data) #access info from the server that s been submitted
     return render_template("sign_up.html")
+
+
 @auth.route('/add-baby-info', methods=['GET','POST'])
 def add_baby_info():
     baby_information = session.get('baby_information', {})
@@ -80,7 +82,6 @@ def review_info():
     else:
         return render_template('review_info.html', form_data=form_data)
 
-
 @auth.route('/success',  methods=['GET','POST'])
 def success():
     if request.method == 'POST':
@@ -102,4 +103,5 @@ def infant_of_diabetic_mother():
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
     return render_template("smallBaby.html")
+
 
