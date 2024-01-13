@@ -12,4 +12,4 @@ def babydata():
     return render_template("babydata.html")
 @views.route('/babyCategories')
 def babyCategories():
-    return render_template("babyCategories.html")
+    return render_template("baby_categories.html")

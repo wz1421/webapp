@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Baby categories{% endblock %}
+{%block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: left;
+        margin: 20px;
+    }
+    h1 {
+        color: #333;
+    }
+    .category-container {
+        display:flex;
+        flex-direction: column;
+        align-items: centre;
+    }
+/* Style the content display */
+#content {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+.category-box {
+  width: 80%;
+  margin: 5px;
+  padding:10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s;
+}
+.category-box:hover {
+  background-color: #ddd;
+}
+
+</style>
+    <h2 align="center">Baby Categories</h2>
+</div>
+    <div class="category-container">
+    <form method="POST" action="prematureBaby.html">
+        <button type="submit" class="category-box">
+            <div>
+                <strong>Premature Baby</strong>
+                <ul>
+                    <li>High brain to body mass ratio leads with corresponding increase in glucose consumption</li>
+                    <li>Failure of counter regulation</li>
+                    <li>Immaturity of hepatic enzyme systems</li>
+                </ul>
+            </div>
+        </button>
+    </form>
+
+    <form method="POST" action="infantOfDiabeticMother.html">
+        <button type="submit" class="category-box">
+            <div>
+                <strong>Infant Of A Diabetic Mother</strong>
+                <ul>
+                    <li>Low blood sugar levels upon birth due to overproduction of insulin</li>
+                </ul>
+            </div>
+        </button>
+    </form>
+
+    <form method="POST" action="smallBaby.html">
+        <button type="submit" class="category-box">
+            <div>
+                <strong>Small Baby</strong>
+                <ul>
+                    <li>Low blood sugar levels due to low glycogen stores</li>
+                    <li>High brain to body mass ratio leads with corresponding increase in glucose consumption</li>
+                </ul>
+            </div>
+        </button>
+    </form>
+</div>
+<h1></h1>
+{% endblock %}
