@@ -86,3 +86,19 @@ def success():
     if request.method == 'POST':
         return redirect(url_for('views.home'))
     return render_template("success.html")
+
+@auth.route('/baby-categories', methods=['GET','POST'])
+def baby_categories():
+    return render_template('baby_categories.html')
+
+@auth.route('/premature-baby', methods=['GET','POST'])
+def premature_baby():
+    return render_template("prematureBaby.html")
+
+@auth.route('/infant-of-diabetic-mother', methods=['GET','POST'])
+def infant_of_diabetic_mother():
+    return render_template("infantOfDiabeticMother.html")
+
+@auth.route('/small-baby', methods=['GET','POST'])
+def small_baby():
+    return render_template("smallBaby.html")
