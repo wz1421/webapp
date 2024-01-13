@@ -13,9 +13,6 @@ def login():
 @auth.route('/babydata')
 def baby_data():
     return render_template(baby_data.html,text="Baby 1")
-@auth.route('/babyCategories')
-def baby_categories():
-    return render_template(babyCategories.html,text="Baby Categories")
 
 @auth.route('/sign-up', methods=['GET','POST'])
 def sign_up():
@@ -85,25 +82,23 @@ def baby_categories():
             return redirect(url_for('auth.premature_baby'))
 
         elif selected_category == 'infantOfDiabeticMother':
-            # Handle Infant Of A Diabetic Mother category redirection
             session['baby_categories'] = {'category': 'Infant Of A Diabetic Mother'}
             return redirect(url_for('auth.infant_of_diabetic_mother'))
 
         elif selected_category == 'smallBaby':
-            # Handle Small Baby category redirection
             session['baby_categories'] = {'category': 'Small Baby'}
             return redirect(url_for('auth.small_baby'))
 
     return render_template('baby_categories.html')
 
-@auth.route('/premature-baby')
+@auth.route('/premature-baby', methods=['GET','POST'])
 def premature_baby():
     return render_template("prematureBaby.html")
 
-@auth.route('/infant-of-diabetic-mother')
+@auth.route('/infant-of-diabetic-mother', methods=['GET','POST'])
 def infant_of_diabetic_mother():
     return render_template("infantOfDiabeticMother.html")
 
-@auth.route('/small-baby')
+@auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
     return render_template("smallBaby.html")
