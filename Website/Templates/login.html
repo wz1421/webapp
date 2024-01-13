@@ -1,50 +1,54 @@
-<!DOCTYPE html>
-
-<html>
+<!-- {% extends "base.html" %} -->
+<!-- {% block title %}Home{% endblock %} -->
+<!-- {%block content %} -->
+<htmtl>
     <head>
-        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
-        <!-- <link rel="stylesheet" type="text/css" href="../static/styles/login.css"> -->
-        <title>Document</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link    
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            crossorigin="anonymous"
+        />
+        <!-- <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" /> -->
+        <link rel="stylesheet" type="text/css" href="../static/styles/login.css">
     </head>
     <body>
-        <div class="container">
-            <div class="center_userpass_group" style="padding-top: 5%;">
-                <div class="user_pass_group">
-                    <span class="user_pass_text">Username</span>
-                    <input class="text_box" />
-                </div>
-                <div class="user_pass_group" style="padding-top: 0%;">
-                    <span class="user_pass_text">Password</span>
-                    <input class="text_box" type="password" />
-                </div>
-                <span class="forgot_pass_text">Forgot password ? Click here to reset</span>
-                <button class="login_button">
-                    Login
-                </button>
-            </div>   
-            <div style="display: flex ; flex-direction: row ; align-items: center ; justify-content:center; margin-top: 2.5%;">
-                <div class="line"></div> 
-                <span class="or_">or</span>
-                <div class="line" style="left:43%"></div>
+        <div style="display:flex; flex-direction: row; width: 100%; height: 100%; overflow: hidden;">
+            <div class="container" style="justify-content: center;margin-top: 4%;">
+                <h1 style="align-self: center; margin-bottom: -15%;text-align: center; color:#121212">
+                    Baby Glucose<br/>Monitoring System
+                </h1>
+                <img src="../static/login_graphic.svg" />
             </div>
-            <div style="display: flex ; flex-direction: row ; align-items: center ; justify-content:center; margin-top: 1.5%;">
-                <span class="alt_text">Don't have an account? </span>
-                <span class="alt_text" style="margin-left:1% ; color: rgba(0,164,216);">Create an account</span>
+            <div class="container">
+                <div class="login_container">
+                    <h2>Welcome!</h2>
+                    <h6 style="margin-top:-2%; margin-bottom: 12%">
+                        Sign in with your hospital ID.
+                    </h6>
+                    <form action="" method="post">
+                        <input class="text_box" placeholder="Username" name="username" value="{{
+                            request.form.username }}"/>
+                        <input class="text_box" type="password" placeholder="Password" name="password" value="{{
+                            request.form.password }}" style="margin-bottom: 2%;"/>
+                        <!-- <span class="forgot_pass_text"> -->
+                            <!-- Forgot password? Click here to reset -->
+                        <!-- </span> -->
+                        <input class="login_button" type="submit" value="Login" />
+                    </form>
+                    {% if error %}
+                        <p class="error"><strong>{{ error }}</strong>
+                    {% endif %}
+                </div>
             </div>
-
         </div>
     </body>
-</html>
-
-<!--
-*My notes*    
-Most components have an opening and closing tag, e.g.
-  <div> content goes inside </div>
-    ^opening tag              ^closing tag
-
-Sometimes, opening and closing are done in a single tag, e.g.
-  <link href="myurliscool.com" />
-                               ^this / character closes the tag
-
--->
+</htmtl>
+<!-- {% endblock %} -->
