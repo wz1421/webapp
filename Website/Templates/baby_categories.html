@@ -7,9 +7,6 @@
         text-align: left;
         margin: 20px;
     }
-    h1 {
-        color: #333;
-    }
     .category-container {
         display:flex;
         flex-direction: column;
@@ -39,11 +36,12 @@
 }
 </style>
 
-    <h2 align="center">Baby Categories</h2>
+
+<h2 align="center">Baby Categories</h2>
 </div>
 
 <div class="category-container">
-    <a href="{{ url_for('auth.baby_categories', category='prematureBaby') }}" class="category-box">
+    <a href="{{ url_for('auth.premature_baby') }}" class="category-box">
         <div>
             <strong>Premature Baby</strong>
             <ul>
@@ -54,7 +52,7 @@
         </div>
     </a>
 
-    <a href="{{  url_for('auth.baby_categories', category='infantOfDiabeticMother') }}" class="category-box">
+    <a href="{{ url_for('auth.infant_of_diabetic_mother') }}" class="category-box">
         <div>
             <strong>Infant Of A Diabetic Mother</strong>
             <ul>
@@ -63,7 +61,7 @@
         </div>
     </a>
 
-    <a href="{{  url_for('auth.baby_categories', category='smallBaby') }}" class="category-box">
+    <a href="{{  url_for('auth.small_baby') }}" class="category-box">
         <div>
             <strong>Small Baby</strong>
             <ul>
@@ -73,5 +71,6 @@
         </div>
     </a>
 </div>
+
 <h1></h1>
 {% endblock %}

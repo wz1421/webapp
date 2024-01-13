@@ -74,34 +74,16 @@ def success():
 
 @auth.route('/baby-categories', methods=['GET','POST'])
 def baby_categories():
-    if request.method == 'POST':
-        selected_category = request.form.get('category')
-
-        if selected_category == 'prematureBaby':
-            return redirect(url_for('auth.premature_baby'))
-
-        elif selected_category == 'infantOfDiabeticMother':
-            return redirect(url_for('auth.infant_of_diabetic_mother'))
-
-        elif selected_category == 'smallBaby':
-            return redirect(url_for('auth.small_baby'))
-
     return render_template('baby_categories.html')
 
 @auth.route('/premature-baby', methods=['GET','POST'])
 def premature_baby():
-    if request.method == 'POST':
-        return redirect(url_for('views.prematureBaby'))
     return render_template("prematureBaby.html")
 
 @auth.route('/infant-of-diabetic-mother', methods=['GET','POST'])
 def infant_of_diabetic_mother():
-    if request.method == 'POST':
-        return redirect(url_for('views.infantOfDiabeticMother'))
     return render_template("infantOfDiabeticMother.html")
 
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
-    if request.method == 'POST':
-        return redirect(url_for('views.smallBaby'))
     return render_template("smallBaby.html")
