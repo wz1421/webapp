@@ -9,53 +9,21 @@
     </div>
 <div class="form-group">
     <label for="gAge">Gestational Age</label>
-    <input type="number" class="form-control" id="gAge" name="4a. Gestational Age" placeholder="Enter Baby's gestational age"
+    <input type="number" class="form-control" id="gAge" name="3a. Gestational Age" placeholder="Enter Baby's gestational age"value="{{ medical_history.get('3a. Gestational Age')}}"
     />
 </div>
 
     <div class="form-group">
-    Delivery Method: </label>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="natural" name="4b. Delivery Method" value="naturally" checked>
-            <label class="form-check-label" for="natural">Naturally</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="cesarean" name="4b. Delivery Method" value=cesarean">
-            <label class="form-check-label" for="cesarean">Cesarean</label>
-        </div>
-    </div>
-
-        <div class="form-group">
-    NICU Admission: </label>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="yes" name="4c. NICU" value="yes" checked>
-            <label class="form-check-label" for="yes">Yes</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="no" name="4c. NICU" value=no">
-            <label class="form-check-label" for="no">No</label>
-        </div>
-    </div>
-
-    <div class="form-group">
   <label for="medCond">Existing Medical Conditions:</label>
-  <textarea class="form-control" rows="5" id="medCond" name="4d. Existing Medical Conditions"></textarea>
+  <input type = "text" class="form-control" id="medCond" name="3b. Existing Medical Conditions" value="{{ medical_history.get('3b. Existing Medical Conditions')}}"
+  />
 </div>
 
-     <div class="form-group">
-         <label for="apgar">Apgar score table</label>
-      <input type="file" class="form-control-file border" id = "apgar" name="4e. Apgar Score" placeholder="Upload Apgar Score table"/>
-    </div>
-
-    <h3 align="left">Allergies and Medication</h3>
-<div class="form-group">
-  <label for="allergies">Allergies:</label>
-  <textarea class="form-control" rows="5" id="allergies" name="5a. Allergies"></textarea>
-</div>
 
     <div class="form-group">
   <label for="currentMed">Current In-use Medications:</label>
-  <textarea class="form-control" rows="5" id="currentMed" name="5b. Current In-use Medications"></textarea>
+  <input type = "text" class="form-control" id="currentMed" name="3c. Current In-use Medications" value="{{ medical_history.get('3c. Current In-use Medications')}}"
+  />
 </div>
 
 <h3 align="left">Glucose Related Information</h3>
@@ -63,21 +31,24 @@
         <div class="form-group">
         Baby Category: </label>
         <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="premature" name="6a. Baby Category" value="premature" checked>
+            <input type="radio" class="form-check-input" id="premature" name="4a. Baby Category" value="premature"
+                   {% if medical_history.get('4a. Baby Category') == 'premature' %}checked{% endif %}>
             <label class="form-check-label" for="premature">Premature</label>
         </div>
         <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="matDiabetic" name="6a. Baby Category" value="matDiabetic">
+            <input type="radio" class="form-check-input" id="matDiabetic" name="4a. Baby Category" value="matDiabetic"
+             {% if medical_history.get('4a. Baby Category') == 'matDiabetic' %}checked{% endif %}>
             <label class="form-check-label" for="matDiabetic">Maternal Diabetic</label>
         </div>
             <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="small" name="6a. Baby Category" value="small">
+            <input type="radio" class="form-check-input" id="small" name="4a. Baby Category" value="small"
+             {% if medical_history.get('4a. Baby Category') == 'small' %}checked{% endif %}>
             <label class="form-check-label" for="small">Small Baby</label>
         </div>
     </div>
         <div class="form-group">
   <label for="addComment">Additional Comment:</label>
-  <textarea class="form-control" rows="5" id="addComment" name="7a. Additional comments"></textarea>
+  <input type="text" class="form-control" id="addComment" name="5a. Additional Comments" value="{{ medical_history.get('5a. Additional Comments')}}"></input>
 </div>
 
     <br />
