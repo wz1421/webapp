@@ -72,6 +72,8 @@ def review_info():
         'Medical History': medical_history,
     }
     if request.method =='POST':
+        session.pop('baby_information', None)
+        session.pop('medical_history', None)
         return redirect(url_for('auth.success'))
     elif 'back_to_baby_info' in request.args:  # Check for back button press
         return redirect(url_for('auth.add_baby_info', baby_information=json.dumps(baby_information)))
@@ -79,6 +81,8 @@ def review_info():
         return render_template('review_info.html', form_data=form_data)
 
 
-@auth.route('/success')
+@auth.route('/success',  methods=['GET','POST'])
 def success():
-    return render_template("success.html",text="Baby 1")
+    if request.method == 'POST':
+        return redirect(url_for('views.home'))
+    return render_template("success.html")
