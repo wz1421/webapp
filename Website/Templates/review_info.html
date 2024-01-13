@@ -19,7 +19,7 @@
 
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="{{ url_for('auth.add_baby_info') }}">Go Back</a>
+    <a href="{{ url_for('auth.review_info', back_to_baby_info=True) }}">Go Back</a>
 </form>
 <h1></h1>
 {% endblock %}

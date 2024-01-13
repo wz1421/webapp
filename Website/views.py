@@ -1,4 +1,5 @@
 #storing standard routes for the website
+import form
 from flask import Blueprint, render_template
 
 #Blueprint of our application
@@ -10,7 +11,3 @@ def home():
 @views.route('/babydata')
 def babydata():
     return render_template("babydata.html")
-
-
-def plot():
-    return render_template("plot.html")
