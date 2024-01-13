@@ -88,6 +88,13 @@ def success():
         return redirect(url_for('views.home'))
     return render_template("view/success.html")
 
+
+
+@auth.route('/plot-plot', methods=['GET', 'POST'])
+def plot():
+    return render_template("plotplot.html")
+
+
 @auth.route('/baby-categories', methods=['GET','POST'])
 def baby_categories():
     return render_template('categories/baby_categories.html')
@@ -103,5 +110,4 @@ def infant_of_diabetic_mother():
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
     return render_template("categories/smallBaby.html")
-
 
