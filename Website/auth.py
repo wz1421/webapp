@@ -102,3 +102,4 @@ def infant_of_diabetic_mother():
 @auth.route('/small-baby', methods=['GET','POST'])
 def small_baby():
     return render_template("smallBaby.html")
+
