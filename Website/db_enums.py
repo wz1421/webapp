@@ -19,6 +19,7 @@ class UserCategory(enum.Enum):
     doctor = 0
     nurse = 1
     researcher = 2
+    admin = 3
 
     def __str__(self):
         return '%s' % self.name
