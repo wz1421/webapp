@@ -1,5 +1,4 @@
-#storing standard routes for the website
-import form
+# Storing standard routes for the website
 from flask import Blueprint, render_template
 
 #Blueprint of our application
