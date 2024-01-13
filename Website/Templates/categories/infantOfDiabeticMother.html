@@ -35,14 +35,14 @@
 </style>
 
     <h2 align="center">Category: Infant Of Diabetic Mother</h2>
+
+    <h3>Baby ID:</h3>
+<div>
+    <a href="{{ url_for('auth.plot') }}" class="category-box">Baby B ID</a>
 </div>
 
-    <h3>Baby List:</h3>
-</div>
+    <br />
+    <a href="{{ url_for('auth.baby_categories', back_to_baby_cat=True) }}">Back</a>
 
-    <div class="category-container">
-        <button type="submit"class="category-box">Baby A id</button>
-
-    </div>
 <h1></h1>
 {% endblock %}
