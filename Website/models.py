@@ -14,7 +14,7 @@ class Gender(enum.Enum):
 
 class BabyCategory(enum.Enum):
     premature = 0
-    diabetic_mother = 1
+    mat_diabetic = 1
     small = 2
 
     def __str__(self):

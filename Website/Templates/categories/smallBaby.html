@@ -38,6 +38,9 @@
     <h3>Baby ID:</h3>
 <div>
     <a href="{{ url_for('views.plot') }}" class="category-box">Baby C ID</a>
+    {% for baby in babies %}
+    <a href="{{ url_for('views.plot') }}" class="category-box">NIGEL No. {{ baby.nigel_number }} (born {{ baby.dob }})</a>
+    {% endfor %}
 </div>
 
     <br />

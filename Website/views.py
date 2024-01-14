@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 
 from . import db
-from .models import Baby, User, UserCategory, field_titles, baby_category_titles
+from .models import Baby, BabyCategory, User, UserCategory, field_titles, baby_category_titles
 
 # Blueprint for non-authentication-related routes
 views = Blueprint('views', __name__)
@@ -30,6 +30,7 @@ def add_baby_info():
     if passed_baby_information:
         baby_information = json.loads(passed_baby_information)
     if request.method =='POST':
+        print("matching baby:", Baby.query.filter_by(nigel_number=request.form["nigel_number"]).all())
         # TODO: Change admin to doctor; this is currently done for convenience
         if not User.query.filter_by(email=request.form["doctor_email"], category=UserCategory.admin).first():
             flash("Doctor's email is invalid", category="error")
@@ -82,11 +83,10 @@ def review_info():
 
         new_baby = Baby(**baby_information)
 
+        print("new baby:", new_baby)
+
         db.session.add(new_baby)
         db.session.commit()
-
-        for baby in Baby.query.all():
-            print("BABY", baby, "NIGEL", baby.nigel_number)
 
         return redirect(url_for('views.success'))
     elif 'back_to_baby_info' in request.args:  # Check for back button press
@@ -110,6 +110,7 @@ def plot():
 @views.route('/baby-categories', methods=['GET','POST'])
 @login_required
 def baby_categories():
+    print(Baby.query.all())
     return render_template('categories/baby_categories.html')
 
 @views.route('/premature-baby', methods=['GET','POST'])
@@ -117,19 +118,30 @@ def baby_categories():
 def premature_baby():
     if 'back_to_baby_cat' in request.args:
         return redirect(url_for('views.baby_categories'))
-    return render_template("categories/prematureBaby.html")
+    
+    babies = Baby.query.filter_by(category=BabyCategory.premature).all()
+    print(babies)
+
+    return render_template("categories/prematureBaby.html", babies=babies)
 
 @views.route('/infant-of-diabetic-mother', methods=['GET','POST'])
 @login_required
 def infant_of_diabetic_mother():
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
-    return render_template("categories/infantOfDiabeticMother.html")
+    babies = Baby.query.filter_by(category=BabyCategory.mat_diabetic).all()
+    print(babies)
+
+    return render_template("categories/infantOfDiabeticMother.html", babies=babies)
 
 @views.route('/small-baby', methods=['GET','POST'])
 @login_required
 def small_baby():
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
-    return render_template("categories/smallBaby.html")
+    
+    babies = Baby.query.filter_by(category=BabyCategory.small).all()
+    print(babies)
+
+    return render_template("categories/smallBaby.html", babies=babies)
 
