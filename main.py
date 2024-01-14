@@ -1,4 +1,4 @@
-#Website is a python pacakge
+# Website is a python pacakge
 from Website import create_app
 
 app = create_app()
