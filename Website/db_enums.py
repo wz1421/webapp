@@ -1,5 +1,6 @@
 import enum
 
+# Importing the 'enum' module to create enumerations
 class Gender(enum.Enum):
     male = 0
     female = 1
