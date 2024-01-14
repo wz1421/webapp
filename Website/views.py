@@ -1,9 +1,12 @@
 # Storing standard routes for the website
-from flask import Blueprint, render_template, redirect, url_for, request, session,json
+from flask import Blueprint, render_template, redirect, url_for, request, session, json, flash
 from flask_login import login_required, current_user
-from .db import db, Baby
+from datetime import datetime
 
-#Blueprint of our application
+from . import db
+from .models import Baby, BabyCategory, User, UserCategory, field_titles, baby_category_titles
+
+# Blueprint for non-authentication-related routes
 views = Blueprint('views', __name__)
 
 @views.route('/')
@@ -29,8 +32,15 @@ def add_baby_info():
     if passed_baby_information:
         baby_information = json.loads(passed_baby_information)
     if request.method =='POST':
-        session['baby_information'] = request.form.to_dict()
-        return redirect(url_for('views.add_med_history'))
+        print("matching baby:", Baby.query.filter_by(nigel_number=request.form["nigel_number"]).all())
+        # TODO: Change admin to doctor; this is currently done for convenience
+        if not User.query.filter_by(email=request.form["doctor_email"], category=UserCategory.admin).first():
+            flash("Doctor's email is invalid", category="error")
+        elif Baby.query.filter_by(nigel_number=request.form["nigel_number"]).first():
+            flash("NIGEL number is already registered", category="error")
+        else:
+            session['baby_information'] = request.form.to_dict()
+            return redirect(url_for('views.add_med_history'))
 
     return render_template("updates/add_baby_info.html", baby_information=baby_information)
 
@@ -54,18 +64,39 @@ def review_info():
     baby_information = session.get('baby_information', {})
     medical_history = session.get('medical_history', {})
 
+    # Form data to be passed to the /review-info route
     form_data = {
-        'Baby Information': baby_information,
-        'Medical History': medical_history,
+        'Baby Information': {field_titles[k]: v for (k, v) in baby_information.items()},
+        'Medical History': {field_titles[k]: v for (k, v) in medical_history.items()},
     }
+
+    form_data["Medical History"][field_titles["category"]] = (
+        baby_category_titles[form_data["Medical History"][field_titles["category"]]]
+    )
+
+    # Combine medical_history with baby_information and convert DOB to datetime
+    # This is for creating the new baby efficiently
+    baby_information.update(medical_history)
+    baby_information["dob"] = datetime.strptime(
+        baby_information["dob"], "%Y-%m-%d"
+    ).date()
+
     if request.method =='POST':
         session.pop('baby_information', None)
         session.pop('medical_history', None)
+
+        new_baby = Baby(**baby_information)
+
+        print("new baby:", new_baby)
+
+        db.session.add(new_baby)
+        db.session.commit()
+
         return redirect(url_for('views.success'))
     elif 'back_to_baby_info' in request.args:  # Check for back button press
         return redirect(url_for('views.add_baby_info', baby_information=json.dumps(baby_information)))
-    else:
-        return render_template('updates/review_info.html', form_data=form_data)
+
+    return render_template('updates/review_info.html', form_data=form_data)
 
 @views.route('/success',  methods=['GET','POST'])
 @login_required
@@ -94,7 +125,11 @@ def premature_baby():
     """ Route for displaying information of premature baby, with a back button"""
     if 'back_to_baby_cat' in request.args:
         return redirect(url_for('views.baby_categories'))
-    return render_template("categories/prematureBaby.html")
+    
+    babies = Baby.query.filter_by(category=BabyCategory.premature).all()
+    print(babies)
+
+    return render_template("categories/prematureBaby.html", babies=babies)
 
 @views.route('/infant-of-diabetic-mother', methods=['GET','POST'])
 @login_required
@@ -102,7 +137,10 @@ def infant_of_diabetic_mother():
     """ Route for displaying information of infant of diabetic mother, with a back button"""
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
-    return render_template("categories/infantOfDiabeticMother.html")
+    babies = Baby.query.filter_by(category=BabyCategory.mat_diabetic).all()
+    print(babies)
+
+    return render_template("categories/infantOfDiabeticMother.html", babies=babies)
 
 @views.route('/small-baby', methods=['GET','POST'])
 @login_required
@@ -110,5 +148,9 @@ def small_baby():
     """ Route for displaying information of small baby, with a back button"""
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
-    return render_template("categories/smallBaby.html")
+    
+    babies = Baby.query.filter_by(category=BabyCategory.small).all()
+    print(babies)
+
+    return render_template("categories/smallBaby.html", babies=babies)
 

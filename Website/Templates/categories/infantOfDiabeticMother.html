@@ -42,6 +42,9 @@
 <div>
 <!-- Link to plot page with a category box -->
     <a href="{{ url_for('views.plot') }}" class="category-box">Baby B ID</a>
+    {% for baby in babies %}
+    <a href="{{ url_for('views.plot') }}" class="category-box">NIGEL No. {{ baby.nigel_number }} (born {{ baby.dob }})</a>
+    {% endfor %}
 </div>
 
     <!-- Link to baby_category page when press back button -->
