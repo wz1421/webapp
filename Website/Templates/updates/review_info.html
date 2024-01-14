@@ -6,15 +6,12 @@
 
  <!-- Form for reviewing and submitting baby information -->
 {% block content %}
-<form method="POST">
+<div style="padding:5%;">
+    <form method="POST">
+    <!-- Heading and subheading for the page -->
+    <h2 align="center">Review Baby Information</h2>
 
-  <!-- Heading and subheading for the page -->
-    <h2 align="center">Add baby information</h2>
-</div>
-
-    <h3 align="left">Review Information</h3>
-
- <!-- Loop through form_data to display sections and corresponding data -->
+    <!-- Loop through form_data to display sections and corresponding data -->
     {% for section, data in form_data.items() %}
         <h3>{{ section }}</h3>
         <ul>
@@ -24,11 +21,11 @@
         </ul>
     {% endfor %}
 
-   <!-- Submit button for form submission -->
+    <!-- Submit button for form submission -->
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
-<!-- Link to go back to the previous page -->
+    <!-- Link to go back to the previous page -->
     <a href="{{ url_for('views.review_info', back_to_baby_info=True) }}">Go Back</a>
-</form>
-<h1></h1>
+    </form>
+</div>
 {% endblock %}

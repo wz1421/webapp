@@ -6,14 +6,12 @@
 
 <!-- Form for adding medical history and glucose-related information -->
 {% block content %}
-<form method="POST">
-
-<!-- Heading and subheading for adding baby information -->
-    <h2 align="center">Add baby information</h2>
-    </div>
+<div style="padding:5%;">
+    <form method="POST">
+    <!-- Heading and subheading for adding baby information -->
+    <h2 align="center">Add Baby Information</h2>
 
     <h3 align="left">Medical History</h3>
-    </div>
     <!-- Input field for Gestational Age -->
     <div class="form-group">
         <label for="gAge">Gestational Age</label>
@@ -51,12 +49,11 @@
         />
     </div>
 
-    <!-- Subheading for glucose-related information section -->
-    <h3 align="left">Glucose Related Information</h3>
-        </div>
-            <!-- Input field for selecting Baby Category -->
-            <div class="form-group">
-            Baby Category: </label>
+        <!-- Subheading for glucose-related information section -->
+        <h3 align="left">Glucose Related Information</h3>
+        <!-- Input field for selecting Baby Category -->
+        <div class="form-group">
+            <label for="category">Baby Category:</label><br/>
             <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" id="premature" name="category" value="premature" required
                     {% if medical_history.get('category') == 'premature' %}checked{% endif %}>
@@ -67,20 +64,21 @@
                 {% if medical_history.get('category') == 'matDiabetic' %}checked{% endif %}>
                 <label class="form-check-label" for="matDiabetic">Maternal Diabetic</label>
             </div>
-                <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" id="small" name="category" value="small" required
                 {% if medical_history.get('category') == 'small' %}checked{% endif %}>
                 <label class="form-check-label" for="small">Small Baby</label>
             </div>
+            </div>
+        <!-- Input field for Additional Comments -->
+        <div class="form-group">
+            <label for="addComment">Additional Comments:</label>
+            <input type="text" class="form-control" id="addComment" name="comments" value="{{ medical_history.get('comments')}}"></input>
         </div>
-    <!-- Input field for Additional Comments -->
-    <div class="form-group">
-        <label for="addComment">Additional Comment:</label>
-        <input type="text" class="form-control" id="addComment" name="comments" value="{{ medical_history.get('comments')}}"></input>
-    </div>
 
-    <br />
- <!-- Submit button for form submission -->
-    <button type="submit" class="btn btn-primary">Save and Continue</button>
-</form>
+        <br />
+    <!-- Submit button for form submission -->
+        <button type="submit" class="btn btn-primary">Save and Continue</button>
+    </form>
+</div>
 {% endblock %}

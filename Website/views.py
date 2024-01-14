@@ -76,16 +76,18 @@ def review_info():
 
     # Combine medical_history with baby_information and convert DOB to datetime
     # This is for creating the new baby efficiently
-    baby_information.update(medical_history)
-    baby_information["dob"] = datetime.strptime(
-        baby_information["dob"], "%Y-%m-%d"
+
+    combined_dict = dict(baby_information)
+    combined_dict.update(medical_history)
+    combined_dict["dob"] = datetime.strptime(
+        combined_dict["dob"], "%Y-%m-%d"
     ).date()
 
     if request.method =='POST':
         session.pop('baby_information', None)
         session.pop('medical_history', None)
 
-        new_baby = Baby(**baby_information)
+        new_baby = Baby(**combined_dict)
 
         print("new baby:", new_baby)
 

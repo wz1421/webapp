@@ -18,12 +18,22 @@
       crossorigin="anonymous"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom CSS stylesheet for base template -->
+    <link rel="stylesheet" type="text/css" href="../static/styles/base.css">
+
+
   <!-- Title of the page -->
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
   <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:1%">
       <button
         class="navbar-toggler"
         type="button"
@@ -33,18 +43,36 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          <!-- <a class="nav-item nav-link" id="home" href="/">Home</a> -->
-          <a class="nav-item nav-link" id="babyCategories" href="/baby-categories">Baby Categories</a>
-          <a class="nav-item nav-link" id="addBabyInfo" href="/add-baby-info">Add baby information</a>
-
-          <!-- Display 'Add new user' link if the current user is an admin -->
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+              <a class="nav-link" id="babyCategories" href="/baby-categories">
+                Baby Categories
+              </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="addBabyInfo" href="/add-baby-info">
+              Add Baby Information
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
           {% if current_user.category.name == "admin" %}
-          <a class="nav-item nav-link" id="addUser" href="/signup">Add new user</a>
+          <li class="nav-item">
+            <!-- Display 'Add new user' link if the current user is an admin -->
+            <a class="nav-link" id="addUser" href="/signup">
+              Add New User
+            </a>
+          </li>
           {% endif %}
+          <li class="nav-item">
+            <!-- Logout link -->
+            <a class="nav-link" id="logout" href="/logout">
+              Logout
+            </a>
+          </li>
+        </ul>
+  
 
-          <!-- Logout link -->
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         </div>
       </div>
     </nav>
