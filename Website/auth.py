@@ -48,7 +48,7 @@ def sign_up():
     if current_user.category == UserCategory.admin:
         return render_template("login_signup/sign_up.html")
     else:
-        return redirect(url_for("views.home"))
+        return redirect(url_for("views.home.html"))
 
 @auth.route('/signup', methods=['POST'])
 @login_required

@@ -16,7 +16,7 @@ def home():
 @views.route('/babydata')
 @login_required
 def baby_data():
-    return render_template("view/babydata.html",text="Baby 1")
+    return render_template("categories/baby_categories.html",text="Baby 1")
 
 @views.route('/add-baby-info', methods=['GET','POST'])
 @login_required
