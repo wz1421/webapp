@@ -80,21 +80,21 @@ def plot():
 def baby_categories():
     return render_template('categories/baby_categories.html')
 
-@views.route('/premature-baby', methods=['GET','POST'])
+@views.route('/baby-categories/premature-baby', methods=['GET','POST'])
 @login_required
 def premature_baby():
     if 'back_to_baby_cat' in request.args:
         return redirect(url_for('views.baby_categories'))
     return render_template("categories/prematureBaby.html")
 
-@views.route('/infant-of-diabetic-mother', methods=['GET','POST'])
+@views.route('/baby-categories/infant-of-diabetic-mother', methods=['GET','POST'])
 @login_required
 def infant_of_diabetic_mother():
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
     return render_template("categories/infantOfDiabeticMother.html")
 
-@views.route('/small-baby', methods=['GET','POST'])
+@views.route('/baby-categories/small-baby', methods=['GET','POST'])
 @login_required
 def small_baby():
     if 'back_to_baby_cat' in request.args:
