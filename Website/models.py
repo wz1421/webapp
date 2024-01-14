@@ -5,6 +5,7 @@ import enum
 
 db = SQLAlchemy()
 
+# Importing the 'enum' module to create enumerations
 class Gender(enum.Enum):
     male = 0
     female = 1
@@ -29,6 +30,7 @@ class UserCategory(enum.Enum):
     def __str__(self):
         return '%s' % self.name
 
+# Database schema
 class User(db.Model, UserMixin):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)

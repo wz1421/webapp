@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+<!-- Title for the signup page -->
 {% block title %}Signup for hospital staff{% endblock %}
+
 {% block content %}
+   <!-- Form for hospital staff signup -->
 <form method="POST">
     <h3 align="center">Sign Up (Hospital Staff)</h3>
+
+    <!-- Email input field -->
     <div class="form-group">
         <label for="email">Email Address</label>
         <input
@@ -13,6 +18,8 @@
             placeholder="Enter Email"
         />
     </div>
+
+    <!-- First Name input field -->
     <div class="form-group">
         <label for="firstName">First Name</label>
         <input
@@ -23,6 +30,8 @@
             placeholder="Enter first name"
         />
     </div>
+
+     <!-- Password input field -->
     <div class="form-group">
         <label for="password1">Password </label>
         <input
@@ -33,6 +42,8 @@
             placeholder="Enter password"
         />
     </div>
+
+    <!-- Confirm Password input field -->
     <div class="form-group">
         <label for="password2">Password (Confirm)</label>
         <input
@@ -43,6 +54,8 @@
             placeholder="Confirm password"
         />
     </div>
+
+     <!-- Submit button for form submission -->
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

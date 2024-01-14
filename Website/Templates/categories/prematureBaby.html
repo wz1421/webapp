@@ -2,6 +2,7 @@
 {% block title %}Baby categories{% endblock %}
 {%block content %}
 <style>
+/* Global styling for the body */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -32,10 +33,11 @@
         border: 1px solid #ccc;
     }
 </style>
-
+<!-- Header and subheadder -->
     <h2 align="center">Category: Premature Baby</h2>
-
     <h3>Baby ID:</h3>
+
+    <!-- Link to plot page with a category box -->
 <div>
     <a href="{{ url_for('views.plot') }}" class="category-box">Baby A ID</a>
     {% for baby in babies %}
@@ -44,6 +46,7 @@
 </div>
 
     <br />
+     <!-- Link to baby_category page when press back button -->
     <a href="{{ url_for('views.baby_categories', back_to_baby_cat=True) }}">Back</a>
 
 <h1></h1>

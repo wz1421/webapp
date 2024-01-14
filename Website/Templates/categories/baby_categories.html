@@ -2,6 +2,7 @@
 {% block title %}Baby categories{% endblock %}
 {% block content %}
 <style>
+  /* Style for the container holding the categories */
     .category-container {
         display:flex;
         flex-direction: column;
@@ -15,6 +16,8 @@
     border: 1px solid #ccc;
     text-align: left;
 }
+
+  /* Style for each category box */
 .category-box {
   width: 80%;
   margin: 5px;
@@ -26,6 +29,8 @@
   color: #333;
   transition: background-color 0.3s;
 }
+
+  /* Hover effect for category boxes */
 .category-box:hover {
   background-color: #ddd;
 }
@@ -35,6 +40,7 @@
 <h2 align="center">Baby Categories</h2>
 </div>
 
+    <!-- Container for displaying categories and also their relative link when pressed into each category -->
 <div class="category-container">
     <a href="{{ url_for('views.premature_baby') }}" class="category-box">
         <div>

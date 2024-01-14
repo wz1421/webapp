@@ -1,24 +1,33 @@
+<!-- Extending the base template for consistent styling and structure -->
 {% extends "base.html" %}
+
+ <!-- Title for the page -->
 {% block title %}Add baby info{% endblock %}
+
+ <!-- Form for reviewing and submitting baby information -->
 {% block content %}
 <form method="POST">
+
+  <!-- Heading and subheading for the page -->
     <h2 align="center">Add baby information</h2>
 </div>
 
     <h3 align="left">Review Information</h3>
 
+ <!-- Loop through form_data to display sections and corresponding data -->
     {% for section, data in form_data.items() %}
         <h3>{{ section }}</h3>
         <ul>
-            {% for (key, value) in data|dictsort %}
+            {% for key, value in data|dictsort %}
                 <li><strong>{{ key }}:</strong> {{ value }}</li>
             {% endfor %}
         </ul>
     {% endfor %}
 
-
+   <!-- Submit button for form submission -->
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
+<!-- Link to go back to the previous page -->
     <a href="{{ url_for('views.review_info', back_to_baby_info=True) }}">Go Back</a>
 </form>
 <h1></h1>
