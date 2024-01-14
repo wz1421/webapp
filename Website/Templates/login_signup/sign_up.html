@@ -3,61 +3,62 @@
 {% block title %}Signup for hospital staff{% endblock %}
 
 {% block content %}
-   <!-- Form for hospital staff signup -->
-<form method="POST">
-    <h3 align="center">Sign Up (Hospital Staff)</h3>
+<div style="padding: 5%">
+    <!-- Form for hospital staff signup -->
+    <form method="POST">
+        <h3 align="center">New User Registration (Hospital Staff)</h3>
+        
+        <!-- Email input field -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Enter Email"
+            />
+        </div>
 
-    <!-- Email input field -->
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            placeholder="Enter Email"
-        />
-    </div>
+        <!-- First Name input field -->
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+                placeholder="Enter first name"
+            />
+        </div>
 
-    <!-- First Name input field -->
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input
-            type="text"
-            class="form-control"
-            id="firstName"
-            name="firstName"
-            placeholder="Enter first name"
-        />
-    </div>
+        <!-- Password input field -->
+        <div class="form-group">
+            <label for="password1">Password </label>
+            <input
+                type="password"
+                class="form-control"
+                id="password1"
+                name="password1"
+                placeholder="Enter password"
+            />
+        </div>
 
-     <!-- Password input field -->
-    <div class="form-group">
-        <label for="password1">Password </label>
-        <input
-            type="password"
-            class="form-control"
-            id="password1"
-            name="password1"
-            placeholder="Enter password"
-        />
-    </div>
+        <!-- Confirm Password input field -->
+        <div class="form-group">
+            <label for="password2">Password (Confirm)</label>
+            <input
+                type="password"
+                class="form-control"
+                id="password2"
+                name="password2"
+                placeholder="Confirm password"
+            />
+        </div>
 
-    <!-- Confirm Password input field -->
-    <div class="form-group">
-        <label for="password2">Password (Confirm)</label>
-        <input
-            type="password"
-            class="form-control"
-            id="password2"
-            name="password2"
-            placeholder="Confirm password"
-        />
-    </div>
-
-     <!-- Submit button for form submission -->
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<h1></h1>
+        <!-- Submit button for form submission -->
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 {% endblock %}

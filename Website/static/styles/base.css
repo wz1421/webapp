@@ -1,7 +1,7 @@
 .nav-link::after {
     content: '';
     height: 1.5px;
-    width: 100%;
+    width: 0%;
     background-color: rgb(40, 129, 212);
     position: absolute;
     bottom: 0;
@@ -12,6 +12,7 @@
 
 .nav-link:hover::after {
     opacity: 1;
+    width: 100%;
 }
 
 .nav-link {
