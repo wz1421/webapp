@@ -9,61 +9,89 @@
     </div>
 <div class="form-group">
     <label for="nigel">NIGEL Number </label>
-    <input type="number" class="form-control" id="nigel" name="1a. NIGEL Number" placeholder="Enter NIGEL Number"value="{{ baby_information.get('1a. NIGEL Number')}}"
+    <input 
+        type="number" 
+        class="form-control" 
+        id="nigel" 
+        name="nigel_number" 
+        placeholder="Enter NIGEL Number"
+        value="{{ baby_information.get('nigel_number')}}"
+        required
     />
 </div>
 
     <div class="form-check form-check-inline">
-        <input type="radio" class="form-check-input" id="female" name="1b. Gender" value="female"
-               {% if baby_information.get('1b. Gender') == 'female' %}checked{% endif %}>
+        <input type="radio" class="form-check-input" id="female" name="gender" value="female" required
+               {% if baby_information.get('gender') == 'female' %}checked{% endif %}>
         <label class="form-check-label" for="female">Female</label>
     </div>
     <div class="form-check form-check-inline">
-        <input type="radio" class="form-check-input" id="male" name="1b. Gender" value="male"
-               {% if baby_information.get('1b. Gender') == 'male' %}checked{% endif %}>
+        <input type="radio" class="form-check-input" id="male" name="gender" value="male" required
+               {% if baby_information.get('gender') == 'male' %}checked{% endif %}>
         <label class="form-check-label" for="male">Male</label>
     </div>
         </div>
 
      <div class="form-group">
         <label for="dob">Date of Birth</label>
-        <input type="date" class="form-control" id="dob" name="1c. Date of Birth" value="{{ baby_information.get('1c. Date of Birth')}}"
+        <input type="date" class="form-control" id="dob" name="dob" value="{{ baby_information.get('dob')}}" required
         />
     </div>
 
 
 <div class="form-group">
     <label for="birthWeight">Birth Weight (grams)</label>
-    <input type="number" class="form-control" id="birthWeight" name="1d. Birth Weight" placeholder="Enter Birth Weight" value="{{ baby_information.get('1d. Birth Weight')}}"
+    <input
+        type="number"
+        class="form-control"
+        id="birthWeight"
+        name="birth_weight"
+        placeholder="Enter Birth Weight"
+        value="{{ baby_information.get('birth_weight')}}"
+        required
     />
 
 </div>
 
     <div class="form-group">
     <label for="birthLength">Birth Length (cm)</label>
-    <input type="number" class="form-control" id="birthLength" name="1e. Birth Length" placeholder="Enter Birth Length" value="{{ baby_information.get('1e. Birth Length')}}"
+    <input
+        type="number"
+        class="form-control"
+        id="birthLength"
+        name="birth_length"
+        placeholder="Enter Birth Length"
+        value="{{ baby_information.get('birth_length')}}"
+        required
     />
 </div>
 
-
+<!-- 
     <h3 align="left">Information of doctor in charge</h3>
     <div class="form-group">
         <label for="doctorName">Doctor Name</label>
-        <input type="text" class="form-control" id="doctorName" name="2a. Doctor Name" placeholder="Enter doctor in charge" value="{{ baby_information.get('2a. Doctor Name')}}"
+        <input type="text" class="form-control" id="doctorName" name="doctor_name" placeholder="Enter doctor in charge" value="{{ baby_information.get('doctor_name')}}"
+        />
+    </div> -->
+
+    <div class="form-group">
+        <label for="doctorEmail">Doctor-in-charge's Email</label>
+        <input
+            type="email"
+            class="form-control"
+            id="doctorEmail"
+            name="doctor_email"
+            placeholder="Enter internal email address of doctor in charge"
+            value="{{ baby_information.get('doctor_email') }}"
+            required
         />
     </div>
 
-    <div class="form-group">
-        <label for="doctorEmail">Doctor Email</label>
-        <input type="email" class="form-control" id="doctorEmail" name="2b. Doctor Email" placeholder="Enter internal email address of doctor in charge" value="{{ baby_information.get('2b. Doctor Email')}}"
-        />
-    </div>
-
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="doctorNum">Doctor Number</label>
         <input type="tel" class="form-control" id="doctorNum" name="2c. Doctor Contact Number" placeholder="Enter emergency contact number of doctor in charge" value="{{ baby_information.get('2c. Doctor Contact Number')}}"
         />
-    </div>
+    </div> -->
 
 
     <br />
