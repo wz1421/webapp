@@ -1,6 +1,6 @@
 import pytest
 from flask import Flask, url_for
-from Website import create_app, db  # Adjust the import path as needed
+from Website import create_app, db
 from Website.models import User, UserCategory
 import time
 import random

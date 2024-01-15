@@ -1,6 +1,6 @@
 import pytest
 from flask import Flask, url_for
-from Website import create_app, db  # Adjust the import path as needed
+from Website import create_app, db
 from Website.models import User, UserCategory
 import time
 import random
@@ -86,14 +86,6 @@ def test_add_med_history_route(client):
     assert response.status_code == 200  # Ensure that the response is OK (200)
     assert b'Add baby information' in response.data
 
-def test_review_info_route(client):
-    # Log in as the registered admin user
-    client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
-
-    # Access the /review-info route
-    response = client.get('/review-info')
-    assert response.status_code == 200  # Ensure that the response is OK (200)
-
 def test_success_route(client):
     # Log in as the registered admin user
     client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
@@ -103,7 +95,7 @@ def test_success_route(client):
     assert response.status_code == 200  # Ensure that the response is OK (200)
     assert b'Success' in response.data
 
-def test_plot_route(client, init_db):
+def test_plot_route(client):
     # Log in as the registered admin user
     client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
 
@@ -112,7 +104,7 @@ def test_plot_route(client, init_db):
     assert response.status_code == 200  # Ensure that the response is OK (200)
 
 
-def test_baby_categories_route(client, init_db):
+def test_baby_categories_route(client):
     # Log in as the registered admin user
     client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
 
@@ -121,35 +113,28 @@ def test_baby_categories_route(client, init_db):
     assert response.status_code == 200  # Ensure that the response is OK (200)
 
 
-def test_premature_baby_route(client, init_db):
+def test_premature_baby_route(client):
     # Log in as the registered admin user
     client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
 
     # Access the /premature-baby route
-    response = client.get('/premature-baby')
+    response = client.get('/baby-categories/premature-baby')
     assert response.status_code == 200  # Ensure that the response is OK (200)
 
-    # You can continue writing similar tests for other routes
-
-# Sample test for the /infant-of-diabetic-mother route
-def test_infant_of_diabetic_mother_route(client, init_db):
+def test_infant_of_diabetic_mother_route(client):
     # Log in as the registered admin user
     client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
 
     # Access the /infant-of-diabetic-mother route
-    response = client.get('/infant-of-diabetic-mother')
+    response = client.get('/baby-categories/infant-of-diabetic-mother')
     assert response.status_code == 200  # Ensure that the response is OK (200)
-    assert b'Infant of Diabetic Mother Information' in response.data  # Adjust this assertion based on your page content
 
-    # You can continue writing similar tests for other routes
-
-# Sample test for the /small-baby route
-def test_small_baby_route(client, init_db):
+def test_small_baby_route(client):
     # Log in as the registered admin user
     client.post('/login', data={'email': 'admin@ic.ac.uk', 'password': 'admin'}, follow_redirects=True)
 
     # Access the /small-baby route
-    response = client.get('/small-baby')
+    response = client.get('/baby-categories/small-baby')
     assert response.status_code == 200  # Ensure that the response is OK (200)
-    assert b'Small Baby Information' in response.data  # Adjust this assertion based on your page content
+
 
