@@ -33,8 +33,7 @@ def add_baby_info():
         baby_information = json.loads(passed_baby_information)
     if request.method =='POST':
         print("matching baby:", Baby.query.filter_by(nigel_number=request.form["nigel_number"]).all())
-        # TODO: Change admin to doctor; this is currently done for convenience
-        if not User.query.filter_by(email=request.form["doctor_email"], category=UserCategory.admin).first():
+        if not User.query.filter_by(email=request.form["doctor_email"], category=UserCategory.doctor).first():
             flash("Doctor's email is invalid", category="error")
         elif Baby.query.filter_by(nigel_number=request.form["nigel_number"]).first():
             flash("NIGEL number is already registered", category="error")
