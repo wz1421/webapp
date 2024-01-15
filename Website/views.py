@@ -109,9 +109,12 @@ def success():
 @views.route('/plot-plot', methods=['GET', 'POST'])
 @login_required
 def plot():
+    if 'back_to_prev_cat' in request.args:
+        if 'current_cat' in session:
+            return redirect(session['current_cat'])
+
     """ Route for displaying a plot."""
     return render_template("plotplot.html")
-
 
 @views.route('/baby-categories', methods=['GET','POST'])
 @login_required
@@ -122,6 +125,8 @@ def baby_categories():
 @views.route('/baby-categories/premature-baby', methods=['GET','POST'])
 @login_required
 def premature_baby():
+    session['current_cat'] = url_for('views.premature_baby')
+
     """ Route for displaying information of premature baby, with a back button"""
     if 'back_to_baby_cat' in request.args:
         return redirect(url_for('views.baby_categories'))
@@ -134,6 +139,8 @@ def premature_baby():
 @views.route('/baby-categories/infant-of-diabetic-mother', methods=['GET','POST'])
 @login_required
 def infant_of_diabetic_mother():
+    session['current_cat'] = url_for('views.infant_of_diabetic_mother')
+
     """ Route for displaying information of infant of diabetic mother, with a back button"""
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
@@ -145,6 +152,8 @@ def infant_of_diabetic_mother():
 @views.route('/baby-categories/small-baby', methods=['GET','POST'])
 @login_required
 def small_baby():
+    session['current_cat'] = url_for('views.small_baby')
+
     """ Route for displaying information of small baby, with a back button"""
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
