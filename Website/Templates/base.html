@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <!-- Document metadata, character set, and viewport settings -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS and Font Awesome icons -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -15,9 +18,11 @@
       crossorigin="anonymous"
     />
 
+  <!-- Title of the page -->
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
+  <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
         class="navbar-toggler"
@@ -32,13 +37,19 @@
           <!-- <a class="nav-item nav-link" id="home" href="/">Home</a> -->
           <a class="nav-item nav-link" id="babyCategories" href="/baby-categories">Baby Categories</a>
           <a class="nav-item nav-link" id="addBabyInfo" href="/add-baby-info">Add baby information</a>
+
+          <!-- Display 'Add new user' link if the current user is an admin -->
           {% if current_user.category.name == "admin" %}
           <a class="nav-item nav-link" id="addUser" href="/signup">Add new user</a>
           {% endif %}
+
+          <!-- Logout link -->
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         </div>
       </div>
     </nav>
+
+    <!-- Flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -61,14 +72,13 @@
     {% endif %}
     {% endwith %}
 
-
-
+ <!-- Main content container -->
     <div class="container">
       {% block content %}
       {% endblock %}
     </div>
 
-
+<!-- Bootstrap and related JavaScript libraries -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

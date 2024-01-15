@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Document metadata, character set, viewport settings, and title -->
+    <meta charset="UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glucose Level Monitoring</title>
+
+      <!-- Chart.js and Chart.js Annotation Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"></script>
+
+    <!-- Internal Styles -->
 <style>
     body {
     font-family: Arial, sans-serif;
@@ -20,14 +26,15 @@
     height: 400px;
 }
 .notice {
-            background-color: #f0f0f0;
-            color: red;
-            padding: 10px;
-            border: 1px solid #ccc;
-            margin: 10px;
-            font-size: 14px;
-        }
+    background-color: #f0f0f0;
+    color: red;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    font-size: 14px;
+}
 
+/* Styling for popup overlay */
 .popup {
     position: fixed;
     left: 0;
@@ -37,6 +44,8 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
+
+/* Styling for the popup content */
 .popup-content {
     position: fixed;
     top: 50%;
@@ -94,6 +103,7 @@ text-align: left;
 <body>
 
 <div class="container">
+    <!-- Notice for users -->
     <div class="notice">
         Notice: Default time value are set to be 24 hours in a day.
         Please separate each value you enter by ','.
@@ -101,19 +111,23 @@ text-align: left;
     <h1>Glucose Level Monitoring</h1>
     <canvas id="chart"></canvas>
 
+     <!-- User input for time values, glucose levels, and threshold -->
+    <label for="timeValues">Enter Time values:</label>
     <label for="timeValues">Enter Time values:</label>
     <input type="text" id="timeValues" value="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24"><br><br>
 
     <label for="glucoseValues">Enter glucose levels:</label>
     <input type="text" id="glucoseValues" value=" "><br><br>
 
-
+    <!-- setting threshold for abnormality -->
     <label for="thresholdValue">Set Threshold Value:</label>
     <input type="number" id="thresholdValue" value="7"><br><br> <!-- Default value set to 7 -->
 
+    <!-- Button to update the graph -->
     <button onclick="updateThreshold()">Plot</button>
 </div>
 
+<!-- Popup window for warning -->
 <div id="popupWindow" class="popup" style="display: none;">
     <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>

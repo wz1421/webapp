@@ -1,10 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, logout_user
 from werkzeug.security import generate_password_hash
 
-from .db import db, User, Baby
-from .db_enums import BabyCategory, Gender, UserCategory
+from .models import db, User, Baby, BabyCategory, Gender, UserCategory
 from .views import views
 from .auth import auth
 

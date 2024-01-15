@@ -1,7 +1,10 @@
 <htmtl>
     <head>
+        <!-- Meta tags for character set and viewport configuration -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS and Font Awesome icons -->
         <link    
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -13,9 +16,14 @@
             href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
             crossorigin="anonymous"
         />
+
+        <!-- Custom CSS for login styling -->
         <link rel="stylesheet" type="text/css" href="../static/styles/login.css">
     </head>
+
+
     <body>
+       <!-- styling for different container -->
         <div style="display:flex; flex-direction: row; width: 100%; height: 100%; overflow: hidden;">
             <div class="container" style="justify-content: center;margin-top: 4%;">
                 <h1 style="align-self: center; margin-bottom: -15%;text-align: center; color:#121212">
@@ -25,17 +33,25 @@
             </div>
             <div class="container">
                 <div class="login_container">
+
+                 <!-- Heading and subheading for sign in instruction-->
                     <h2>Welcome!</h2>
                     <h6 style="margin-top:-2%; margin-bottom: 12%">
                         Sign in with your hospital ID.
                     </h6>
+
+                  <!-- Form for login with email and password fields -->
                     <form action="" method="post">
-                        <input class="text_box" placeholder="Email" name="email" value="{{
+                        <input class="text_box" type="email" placeholder="Email" name="email" value="{{
                             request.form.email }}"/>
                         <input class="text_box" type="password" placeholder="Password" name="password" value="{{
                             request.form.password }}" style="margin-bottom: 2%;"/>
+
+                        <!-- Submit button for form submission -->
                         <input class="login_button" type="submit" value="Login" />
                     </form>
+
+                   <!-- Flash message display for login status -->
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         <strong style="position:absolute; margin-top: 22%; color:rgb(204, 47, 47);">
