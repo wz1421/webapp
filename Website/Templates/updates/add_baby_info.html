@@ -1,0 +1,115 @@
+<!-- Extending the base template for consistent styling and structure -->
+{% extends "base.html" %}
+
+    <!-- page title -->
+{% block title %}Add Baby Info{% endblock %}
+
+
+{% block content %}
+        <!-- Form for adding baby information -->
+<form method="POST">
+   <!-- Heading and subheading for basic information section -->
+    <h2 align="center">Add Baby Information</h2>
+</div>
+
+    <h3 align="left">Basic Information</h3>
+    </div>
+
+  <!-- Input field for NIGEL Number -->
+<div class="form-group">
+    <label for="nigel">NIGEL Number </label>
+    <input 
+        type="number" 
+        class="form-control" 
+        id="nigel" 
+        name="nigel_number" 
+        placeholder="Enter NIGEL Number"
+        value="{{ baby_information.get('nigel_number')}}"
+        required
+    />
+</div>
+
+<!-- Gender selection using radio buttons -->
+    <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="female" name="gender" value="female" required
+               {% if baby_information.get('gender') == 'female' %}checked{% endif %}>
+        <label class="form-check-label" for="female">Female</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="male" name="gender" value="male" required
+               {% if baby_information.get('gender') == 'male' %}checked{% endif %}>
+        <label class="form-check-label" for="male">Male</label>
+    </div>
+        </div>
+
+<!-- Input field for Date of Birth -->
+     <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" class="form-control" id="dob" name="dob" value="{{ baby_information.get('dob')}}" required
+        />
+    </div>
+
+   <!-- Input field for Birth Weight -->
+<div class="form-group">
+    <label for="birthWeight">Birth Weight (grams)</label>
+    <input
+        type="number"
+        class="form-control"
+        id="birthWeight"
+        name="birth_weight"
+        placeholder="Enter Birth Weight"
+        value="{{ baby_information.get('birth_weight')}}"
+        required
+    />
+
+</div>
+
+<!-- Input field for Birth Length -->
+    <div class="form-group">
+    <label for="birthLength">Birth Length (cm)</label>
+    <input
+        type="number"
+        class="form-control"
+        id="birthLength"
+        name="birth_length"
+        placeholder="Enter Birth Length"
+        value="{{ baby_information.get('birth_length')}}"
+        required
+    />
+</div>
+
+<!-- Subheading for doctor in charge information -->
+    <h3 align="left">Information of doctor in charge</h3>
+
+ <!-- Input field for Doctor Name -->
+    <!-- <div class="form-group">
+        <label for="doctorName">Doctor Name</label>
+        <input type="text" class="form-control" id="doctorName" name="doctor_name" placeholder="Enter doctor in charge" value="{{ baby_information.get('doctor_name')}}"
+        />
+    </div> -->
+
+    <div class="form-group">
+        <label for="doctorEmail">Doctor-in-charge's Email</label>
+        <input
+            type="email"
+            class="form-control"
+            id="doctorEmail"
+            name="doctor_email"
+            placeholder="Enter internal email address of doctor in charge"
+            value="{{ baby_information.get('doctor_email') }}"
+            required
+        />
+    </div>
+
+    <!-- <div class="form-group">
+        <label for="doctorNum">Doctor Number</label>
+        <input type="tel" class="form-control" id="doctorNum" name="2c. Doctor Contact Number" placeholder="Enter emergency contact number of doctor in charge" value="{{ baby_information.get('2c. Doctor Contact Number')}}"
+        />
+    </div> -->
+
+<!-- Submit button for form submission -->
+    <br />
+    <button type="submit" class="btn btn-primary">Save and Continue</button>
+</form>
+<h1></h1>
+{% endblock %}
