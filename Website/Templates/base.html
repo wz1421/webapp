@@ -43,19 +43,32 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+         <!-- Title -->
+         <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
           <li class="nav-item">
-              <a class="nav-link" id="babyCategories" href="/baby-categories">
-                Baby Categories
-              </a>
+            <div style="display:flex; flex-direction: column; color:rgb(224, 224, 224)">
+              <h2>GlucoGuardian</h2>
+              <div>Logged in as:
+                <b>{{ current_user.first_name|capitalize }}</b>
+                <span>({{current_user.category.name|capitalize}})</span>
+              </div>
+            </div>
+          </li>
+          <!-- <li class="nav-item">
+            <div style="width:2px; height: 100%; background-color:red;"/>
+          </li> -->
+        </ul>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" id="babyCategories" href="/baby-categories">
+              Baby Categories
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="addBabyInfo" href="/add-baby-info">
               Add Baby Information
             </a>
           </li>
-        </ul>
-        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
           {% if current_user.category.name == "admin" %}
           <li class="nav-item">
             <!-- Display 'Add new user' link if the current user is an admin -->
@@ -71,9 +84,6 @@
             </a>
           </li>
         </ul>
-  
-
-        </div>
       </div>
     </nav>
 

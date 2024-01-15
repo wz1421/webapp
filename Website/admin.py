@@ -52,4 +52,4 @@ def sign_up_post():
 
         flash('Account created! Welcome.', category='success')
         return redirect(url_for("views.home"))
-    return redirect(url_for("admin.signup"))
+    return redirect(url_for("admin.sign_up"))
