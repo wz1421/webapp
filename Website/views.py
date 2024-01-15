@@ -126,13 +126,11 @@ def plot():
 def save_plot():
     """ Route that simply saves a plot to the database. This is done in the
      background using jQuery and AJAX. """
-    print("REQUEST RECEIVED")
     try:
         plot_data = request.json
     except:
         plot_data = request.form
 
-    print(plot_data)
     db.session.add(GlucoseRecord(**plot_data))
     db.session.add(ActivityLog(
         user_id = current_user.id,
