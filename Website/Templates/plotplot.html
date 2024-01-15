@@ -90,6 +90,10 @@
 text-align: left;
 }
 </style>
+
+<!-- jQuery for sending plot information to the backend to be plotted -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -110,7 +114,7 @@ text-align: left;
     <label for="thresholdValue">Set Threshold Value:</label>
     <input type="number" id="thresholdValue" value="7"><br><br> <!-- Default value set to 7 -->
 
-    <button onclick="updateThreshold()">Plot</button>
+    <button id="plot_glucose" onclick="updateThreshold()">Plot</button>
 </div>
 
 <div id="popupWindow" class="popup" style="display: none;">
@@ -136,8 +140,6 @@ text-align: left;
 </div>
 
 <div id="message-container"></div>
-
-
 
 <script>
 // Initial Chart
@@ -188,6 +190,25 @@ var thresholdValue = 7; // Default threshold value
 function updateThreshold() {
     thresholdValue = document.getElementById('thresholdValue').value;
     updateGraph(); // Call updateGraph to refresh the chart with the new threshold
+    saveData();
+}
+
+function saveData() {
+    $.ajax({
+        url: "{{ url_for('views.save_plot') }}",
+        method: "POST",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({
+            "baby_id": "{{ request.args['nigel'] }}",
+            "time_values": $('#timeValues').val(),
+            "glucose_values": $('#glucoseValues').val(),
+            "threshold_value": $('#thresholdValue').val(),
+        }),
+        dataType: "json",
+        success: function(response){
+            console.log(response);
+        },
+    });
 }
 
 // Function to update the graph based on user input

@@ -59,6 +59,16 @@ class Baby(db.Model):
         nullable=False
     )
     doctor_in_charge = db.relationship("User", back_populates="babies")
+    glucose_records = db.relationship("GlucoseRecord", back_populates="baby")
+
+class GlucoseRecord(db.Model):
+    __tablename__ = "glucose_record"
+    id = db.Column(db.Integer, primary_key=True)
+    baby_id = db.Column(db.Integer, db.ForeignKey("baby.nigel_number"), nullable=False)
+    time_values = db.Column(db.String, nullable=False)
+    glucose_values = db.Column(db.String, nullable=False)
+    threshold_value = db.Column(db.Integer, nullable=False, server_default='7')
+    baby = db.relationship("Baby", back_populates="glucose_records")
 
 # Mapping of form element names to pretty-printed titles
 field_titles = {

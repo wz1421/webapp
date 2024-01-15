@@ -13,7 +13,7 @@ def register_admin(db):
     """Register a hospital administrator user that can create new accounts."""
     admin_user = User(
         email="admin@ic.ac.uk",
-        first_name="Administrator",
+        first_name="DefaultAdministrator",
         password=generate_password_hash("admin"),
         category=UserCategory.admin
     )

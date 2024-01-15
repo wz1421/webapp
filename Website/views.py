@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 
 from . import db
-from .models import Baby, BabyCategory, User, UserCategory, field_titles, baby_category_titles
+from .models import Baby, BabyCategory, GlucoseRecord, User, UserCategory, field_titles, baby_category_titles
 
 # Blueprint for non-authentication-related routes
 views = Blueprint('views', __name__)
@@ -118,6 +118,16 @@ def plot():
     """ Route for displaying a plot."""
     return render_template("plotplot.html")
 
+@views.route('/save-plot', methods=['POST'])
+@login_required
+def save_plot():
+    """ Route that simply saves a plot to the database. This is done in the
+     background using jQuery and AJAX. """
+    plot_data = request.form.to_dict()
+    db.session.add(GlucoseRecord(**plot_data))
+    db.session.commit()
+    return "Successfully stored glucose record"
+
 @views.route('/baby-categories', methods=['GET','POST'])
 @login_required
 def baby_categories():
@@ -134,9 +144,8 @@ def premature_baby():
         return redirect(url_for('views.baby_categories'))
     
     babies = Baby.query.filter_by(category=BabyCategory.premature).all()
-    print(babies)
 
-    return render_template("categories/prematureBaby.html", babies=babies)
+    return render_template("categories/category_page.html", category="Premature Baby", babies=babies)
 
 @views.route('/baby-categories/infant-of-diabetic-mother', methods=['GET','POST'])
 @login_required
@@ -147,9 +156,8 @@ def infant_of_diabetic_mother():
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
     babies = Baby.query.filter_by(category=BabyCategory.mat_diabetic).all()
-    print(babies)
 
-    return render_template("categories/infantOfDiabeticMother.html", babies=babies)
+    return render_template("categories/category_page.html", category="Infant Of Diabetic Mother", babies=babies)
 
 @views.route('/baby-categories/small-baby', methods=['GET','POST'])
 @login_required
@@ -161,7 +169,6 @@ def small_baby():
          return redirect(url_for('views.baby_categories'))
     
     babies = Baby.query.filter_by(category=BabyCategory.small).all()
-    print(babies)
 
-    return render_template("categories/smallBaby.html", babies=babies)
+    return render_template("categories/category_page.html", category="Small Baby", babies=babies)
 

@@ -49,14 +49,11 @@
             <div style="display:flex; flex-direction: column; color:rgb(224, 224, 224)">
               <h2>GlucoGuardian</h2>
               <div>Logged in as:
-                <b>{{ current_user.first_name|capitalize }}</b>
+                <b>{{ current_user.first_name }}</b>
                 <span>({{current_user.category.name|capitalize}})</span>
               </div>
             </div>
           </li>
-          <!-- <li class="nav-item">
-            <div style="width:2px; height: 100%; background-color:red;"/>
-          </li> -->
         </ul>
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
           <li class="nav-item">
