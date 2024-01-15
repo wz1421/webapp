@@ -125,6 +125,8 @@ text-align: left;
 
     <!-- Button to update the graph -->
     <button onclick="updateThreshold()">Plot</button>
+     <!-- An export button to export graph -->
+    <button onclick="exportGraph()">Export</button>
 </div>
 
 <!-- Popup window for warning -->
@@ -235,11 +237,25 @@ function closePopup() {
     document.getElementById('popupWindow').style.display = 'none';
 }
 
+function exportGraph() {
+    var canvas = document.getElementById('chart');
+    var dataURL = canvas.toDataURL('image/png');
+    var format = 'png'; //download as image png format
+    var filename = 'glucose_plot';
+
+    //create a temporary link and trigger a click to download the image
+    var link = document.createElement('a');
+    link.href = canvas.toDataURL('image/' + format);
+    link.download = filename + '.' + format;
+    link.click();
+}
+
 </script>
 
 <br />
  <!-- Link to baby_category page when press back button -->
 <a href="{{ url_for('views.plot', back_to_prev_cat=True) }}">Back</a>
+
 
 </body>
 </html>
