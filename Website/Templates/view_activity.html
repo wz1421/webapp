@@ -1,0 +1,43 @@
+<!-- Extending the base template for consistent styling and structure -->
+{% extends "base.html" %}
+
+ <!-- Title for the page -->
+{% block title %}View activity logs{% endblock %}
+
+ <!-- Form for reviewing and submitting baby information -->
+{% block content %}
+<div style="padding:5%;">
+    <form method="POST">
+    <!-- Heading and subheading for the page -->
+    <h2 align="center">Activity Logs</h2>
+
+    {% if records|length == 0 %}
+        <span>No activity records found.</span>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User Email</th>
+                <th scope="col">User Category</th>
+                <th scope="col">NiGEL Number Accessed</th>
+                <th scope="col">Activity Type</th>
+                <th scope="col">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record["user"].email }}</td>
+                <td>{{ record["user"].category }}</td>
+                <td>{{ record["nigel_number"] }}</td>
+                <td>{{ record["type"] }}</td>
+                <td>{{ record["timestamp"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+    </form>
+</div>
+{% endblock %}

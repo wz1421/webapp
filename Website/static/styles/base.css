@@ -1,0 +1,20 @@
+.nav-link::after {
+    content: '';
+    height: 1.5px;
+    width: 0%;
+    background-color: rgb(40, 129, 212);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.nav-link:hover::after {
+    opacity: 1;
+    width: 100%;
+}
+
+.nav-link {
+    position: relative;
+}

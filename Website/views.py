@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 
 from . import db
-from .models import Baby, BabyCategory, User, UserCategory, field_titles, baby_category_titles
+from .models import ActivityLog, ActivityCategory, Baby, BabyCategory, GlucoseRecord, User, UserCategory, field_titles, baby_category_titles
 
 # Blueprint for non-authentication-related routes
 views = Blueprint('views', __name__)
@@ -33,8 +33,7 @@ def add_baby_info():
         baby_information = json.loads(passed_baby_information)
     if request.method =='POST':
         print("matching baby:", Baby.query.filter_by(nigel_number=request.form["nigel_number"]).all())
-        # TODO: Change admin to doctor; this is currently done for convenience
-        if not User.query.filter_by(email=request.form["doctor_email"], category=UserCategory.admin).first():
+        if not User.query.filter_by(email=request.form["doctor_email"], category=UserCategory.doctor).first():
             flash("Doctor's email is invalid", category="error")
         elif Baby.query.filter_by(nigel_number=request.form["nigel_number"]).first():
             flash("NIGEL number is already registered", category="error")
@@ -70,26 +69,32 @@ def review_info():
         'Medical History': {field_titles[k]: v for (k, v) in medical_history.items()},
     }
 
+    print(form_data["Medical History"])
+
     form_data["Medical History"][field_titles["category"]] = (
         baby_category_titles[form_data["Medical History"][field_titles["category"]]]
     )
 
     # Combine medical_history with baby_information and convert DOB to datetime
     # This is for creating the new baby efficiently
-    baby_information.update(medical_history)
-    baby_information["dob"] = datetime.strptime(
-        baby_information["dob"], "%Y-%m-%d"
+
+    combined_dict = dict(baby_information)
+    combined_dict.update(medical_history)
+    combined_dict["dob"] = datetime.strptime(
+        combined_dict["dob"], "%Y-%m-%d"
     ).date()
 
     if request.method =='POST':
         session.pop('baby_information', None)
         session.pop('medical_history', None)
 
-        new_baby = Baby(**baby_information)
-
-        print("new baby:", new_baby)
-
-        db.session.add(new_baby)
+        db.session.add(Baby(**combined_dict))
+        db.session.add(ActivityLog(
+            user_id = current_user.id,
+            baby_id = combined_dict["nigel_number"],
+            type = ActivityCategory.register,
+            timestamp = datetime.now()
+        ))
         db.session.commit()
 
         return redirect(url_for('views.success'))
@@ -116,6 +121,49 @@ def plot():
     """ Route for displaying a plot."""
     return render_template("plotplot.html")
 
+@views.route('/save-plot', methods=['POST'])
+def save_plot():
+    """ Route that simply saves a plot to the database. This is done in the
+     background using jQuery and AJAX. """
+    try:
+        plot_data = request.json
+    except:
+        plot_data = request.form
+
+    db.session.add(GlucoseRecord(**plot_data))
+    db.session.add(ActivityLog(
+        user_id = current_user.id,
+        baby_id = plot_data["baby_id"],
+        type = ActivityCategory.record,
+        timestamp = datetime.now()
+    ))
+    db.session.commit()
+    print("Saved:", GlucoseRecord.query.all())
+    return "Successfully stored glucose record"
+
+@views.route('/view-records')
+@login_required
+def view_records():
+    """ View the records of the baby given in the URL args. """
+    
+    # Can assume the baby exists since this route is only accessed through a
+    # valid link for a specific baby
+    nigel_number = int(request.args["nigel"])
+    baby_data = Baby.query.filter_by(nigel_number=nigel_number).first().to_dict()
+
+    db.session.add(ActivityLog(
+        user_id = current_user.id,
+        baby_id = nigel_number,
+        type = ActivityCategory.view,
+        timestamp = datetime.now()
+    ))
+    db.session.commit()
+
+    records = GlucoseRecord.query.filter_by(baby_id=nigel_number).all()
+    records = [record.to_dict() for record in records]
+
+    return render_template("view_records.html", data=baby_data, titles=field_titles, records=records)
+
 @views.route('/baby-categories', methods=['GET','POST'])
 @login_required
 def baby_categories():
@@ -132,9 +180,8 @@ def premature_baby():
         return redirect(url_for('views.baby_categories'))
     
     babies = Baby.query.filter_by(category=BabyCategory.premature).all()
-    print(babies)
 
-    return render_template("categories/prematureBaby.html", babies=babies)
+    return render_template("categories/category_page.html", category="Premature Baby", babies=babies)
 
 @views.route('/baby-categories/infant-of-diabetic-mother', methods=['GET','POST'])
 @login_required
@@ -145,9 +192,8 @@ def infant_of_diabetic_mother():
     if 'back_to_baby_cat' in request.args:
          return redirect(url_for('views.baby_categories'))
     babies = Baby.query.filter_by(category=BabyCategory.mat_diabetic).all()
-    print(babies)
 
-    return render_template("categories/infantOfDiabeticMother.html", babies=babies)
+    return render_template("categories/category_page.html", category="Infant Of Diabetic Mother", babies=babies)
 
 @views.route('/baby-categories/small-baby', methods=['GET','POST'])
 @login_required
@@ -159,7 +205,6 @@ def small_baby():
          return redirect(url_for('views.baby_categories'))
     
     babies = Baby.query.filter_by(category=BabyCategory.small).all()
-    print(babies)
 
-    return render_template("categories/smallBaby.html", babies=babies)
+    return render_template("categories/category_page.html", category="Small Baby", babies=babies)
 

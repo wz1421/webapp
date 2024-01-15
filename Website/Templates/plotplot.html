@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Document metadata, character set, viewport settings, and title -->
-    <meta charset="UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS and Font Awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
     <title>Glucose Level Monitoring</title>
-
-      <!-- Chart.js and Chart.js Annotation Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"></script>
-
-    <!-- Internal Styles -->
 <style>
     body {
     font-family: Arial, sans-serif;
@@ -23,7 +29,7 @@
 }
 #chart {
     width: 100%;
-    height: 400px;
+    max-height: 70%;
 }
 .notice {
     background-color: #f0f0f0;
@@ -34,7 +40,6 @@
     font-size: 14px;
 }
 
-/* Styling for popup overlay */
 .popup {
     position: fixed;
     left: 0;
@@ -44,8 +49,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
-
-/* Styling for the popup content */
 .popup-content {
     position: fixed;
     top: 50%;
@@ -99,37 +102,36 @@
 text-align: left;
 }
 </style>
+
 </head>
 <body>
-
-<div class="container">
-    <!-- Notice for users -->
+    <div class="container">
     <div class="notice">
         Notice: Default time value are set to be 24 hours in a day.
         Please separate each value you enter by ','.
     </div>
     <h1>Glucose Level Monitoring</h1>
+    <br />
+    <!-- Link to baby_category page when press back button -->
+    <a class="link-underline-primary" href="{{ url_for('views.plot', back_to_prev_cat=True) }}">Back to categories</a>
     <canvas id="chart"></canvas>
 
-     <!-- User input for time values, glucose levels, and threshold -->
     <label for="timeValues">Enter Time values:</label>
-    <label for="timeValues">Enter Time values:</label>
-    <input type="text" id="timeValues" value="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24"><br><br>
+    <input type="text" name="timeValues" id="timeValues" value="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24"><br><br>
 
     <label for="glucoseValues">Enter glucose levels:</label>
-    <input type="text" id="glucoseValues" value=" "><br><br>
+    <input type="text" name="glucoseValues" id="glucoseValues" value=" "><br><br>
 
-    <!-- setting threshold for abnormality -->
+
     <label for="thresholdValue">Set Threshold Value:</label>
-    <input type="number" id="thresholdValue" value="7"><br><br> <!-- Default value set to 7 -->
+    <input type="number" name="thresholdValue" id="thresholdValue" value="7"><br><br> <!-- Default value set to 7 -->
 
     <!-- Button to update the graph -->
-    <button onclick="updateThreshold()">Plot</button>
+    <button type="button" class="btn btn-primary" onclick="updateThreshold()">Plot</button>
      <!-- An export button to export graph -->
-    <button onclick="exportGraph()">Export</button>
+    <button type="button" class="btn btn-primary" onclick="exportGraph()">Export</button>
 </div>
 
-<!-- Popup window for warning -->
 <div id="popupWindow" class="popup" style="display: none;">
     <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -137,7 +139,7 @@ text-align: left;
         <form action="https://formsubmit.co/0d74134a0f593487eb1b72457b9229c5" method="POST" class="popup-form">
             <div class="form-group">
                 <label for="NIGELnumber">NIGEL number</label>
-                <input type="text" name="NIGELnumber" id="NIGELnumber" required>
+                <input type="text" name="NIGELnumber" id="NIGELnumber" value={{request.args.nigel}} required>
             </div>
             <div class="form-group">
                 <label for="subject">Glucose Level (High/Low)</label>
@@ -154,8 +156,29 @@ text-align: left;
 
 <div id="message-container"></div>
 
-
-
+<!-- jQuery for sending plot information to the backend to be plotted -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#plot_glucose").click(function() {
+            $.ajax({
+                url: "{{ url_for('views.save_plot') }}",
+                method: "POST",
+                contentType: false,
+                data: {
+                    baby_id: "{{ request.args['nigel'] }}",
+                    time_values: $('#timeValues').val(),
+                    glucose_values: $('#glucoseValues').val(),
+                    threshold_value: $('#thresholdValue').val(),
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log(response);
+                },
+            });
+        });
+    });
+</script>
 <script>
 // Initial Chart
 var ctx = document.getElementById('chart').getContext('2d');
@@ -251,12 +274,6 @@ function exportGraph() {
 }
 
 </script>
-
-<br />
- <!-- Link to baby_category page when press back button -->
-<a href="{{ url_for('views.plot', back_to_prev_cat=True) }}">Back</a>
-
-
 </body>
 </html>
 

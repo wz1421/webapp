@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash
 from .models import db, User, Baby, BabyCategory, Gender, UserCategory
 from .views import views
 from .auth import auth
+from .admin import admin
 
 DB_NAME = "database.db"
 
@@ -12,7 +13,7 @@ def register_admin(db):
     """Register a hospital administrator user that can create new accounts."""
     admin_user = User(
         email="admin@ic.ac.uk",
-        first_name="Administrator",
+        first_name="DefaultAdministrator",
         password=generate_password_hash("admin"),
         category=UserCategory.admin
     )
@@ -43,6 +44,7 @@ def create_app():
     def load_user(email):
         return User.query.get(email)
 
+    app.register_blueprint(admin, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
     return app

@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+    /* font-family: 'Segoe UI'; */
+    /* font-family: 'FontAwesome'; */
+    /* font-size: 18px; */
+  }
+  body {
+    background: linear-gradient(-45deg, #fc9690, #c582f2, #72c9e8, #60e6c7);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login_container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 70%;
+    padding-block: 20%;
+    padding: 10%;
+    align-items: center;
+    justify-content: center;
+    background-color:rgba(255, 255, 255, 0.8);
+    border-radius: 8%;
+    box-shadow:
+      2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+      6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+      12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+      22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+      41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+      100px 100px 80px rgba(0, 0, 0, 0.07)
+  ;
+  }
+  
+  .user_pass_group {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    align-items:flex-start;
+    justify-self: center;
+    flex-direction: column;
+  }
+  
+  .user_pass_text {
+    align-items: center;
+    padding: 1%;
+  }
+  
+  .text_box {
+    width: 100%;
+    background: rgba(217,217,217,0);
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgb(72, 72, 110);
+    padding: 1%;
+    margin-top: 5%;
+    margin-bottom: 6%;
+    overflow: hidden;
+    font-size: 18px;
+    /* font-family: 'Inter'; */
+  }
+  .center_userpass_group{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login_button {
+    display: flex;
+    width: 100%;
+    padding-inline: 6%;
+    padding-block: 2%;
+    margin-top: 15%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    outline: 0;
+    font-size: 18px;
+    border: 2.5px solid rgb(72, 72, 110);
+    color: rgb(72, 72, 110);
+    background: none;
+    transition: 0.3s;
+  }
+  
+  .login_button:hover {
+    background-color: rgb(72, 72, 110);
+    color: white;
+    cursor: pointer;
+    outline: 0;
+  }
+  
+  .forgot_pass_text {
+    font-size: 14px;
+    align-self: flex-start;
+  }
+  
+  .error {
+    color: rgb(169, 3, 3);
+  }
