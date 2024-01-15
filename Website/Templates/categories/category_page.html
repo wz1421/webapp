@@ -36,27 +36,12 @@
    <a class="link-underline-primary" href="{{ url_for('views.baby_categories', back_to_baby_cat=True) }}">Back to Categories</a>
     <!-- Link to plot page with a category box -->
     <div style="padding-top: 2%">
-        <div style="width: 55%; margin-block: 3%; align-self: center; display:flex; flex-direction: row; align-items: center; justify-content: space-between;">
-            <span>Baby A ID</span>
-            <div>
-                <a href="{{ url_for('views.plot') }}" class="category-box">Record Glucose Levels</a>
-                <a href="{{ url_for('views.plot') }}" class="category-box">View Records</a>
-            </div>
-        </div>
-
-        <div style="width: 55%; margin-block: 3%; align-self: flex-start; display:flex; flex-direction: row; align-items: center; justify-content: space-between;">
-            <span>Baby A ID</span>
-            <div>
-                <a href="{{ url_for('views.plot') }}" class="category-box">Record Glucose Levels</a>
-                <a href="{{ url_for('views.plot') }}" class="category-box">View Records</a>
-            </div>
-        </div>
         {% for baby in babies %}
             <div style="width: 55%; margin-block: 3%; align-self: flex-start; display:flex; flex-direction: row; align-items: center; justify-content: space-between;">
                 <span>NIGEL No. {{ baby.nigel_number }} (born {{ baby.dob }})</span>
                 <div>
                     <a href="{{ url_for('views.plot', nigel=baby.nigel_number) }}" class="category-box">Record Glucose Levels</a>
-                    <a href="{{ url_for('views.plot', nigel=baby.nigel_number) }}" class="category-box">View Records</a>
+                    <a href="{{ url_for('views.view_records', nigel=baby.nigel_number) }}" class="category-box">View Records</a>
                 </div>
             </div>
         {% endfor %}

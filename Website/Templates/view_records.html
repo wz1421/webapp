@@ -1,0 +1,56 @@
+<!-- Extending the base template for consistent styling and structure -->
+{% extends "base.html" %}
+
+ <!-- Title for the page -->
+{% block title %}View baby records{% endblock %}
+
+ <!-- Form for reviewing and submitting baby information -->
+{% block content %}
+<div style="padding:5%;">
+    <!-- Heading and subheading for the page -->
+    <h2 align="center">Records for NiGEL No. {{ data['nigel_number'] }}</h2>
+
+    <!-- Link to go back to the previous page -->
+    <br />
+    <a class="link-underline-primary" href="{{ url_for('views.baby_categories', back_to_baby_cat=True) }}">Back to Categories</a>
+
+    <!-- Loop through baby data to display sections and corresponding data -->
+    <h3 style="padding-top: 2%">Baby Information</h3>
+    {% for key in ['gender', 'dob', 'birth_weight', 'birth_length'] %}
+        <ul>
+            <li><strong>{{ titles[key] }}:</strong> {{ data[key] }}</li>
+        </ul>
+    {% endfor %}
+
+    <h3>Medical Information</h3>
+    {% for key in ['g_age', 'med_conds', 'curr_meds', 'category', 'comments'] %}
+        <ul>
+            <li><strong>{{ titles[key] }}:</strong> {{ data[key] }}</li>
+        </ul>
+    {% endfor %}
+
+    <h3>Glucose Records</h3>
+    {% if records|length == 0 %}
+        <span>No records found.</span>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Time Values</th>
+                <th scope="col">Glucose Values</th>
+                <th scope="col">Threshold Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record["time_values"] }}</td>
+                <td>{{ record["glucose_values"] }}</td>
+                <td>{{ record["threshold_value"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+</div>
+{% endblock %}

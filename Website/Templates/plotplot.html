@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS and Font Awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
     <title>Glucose Level Monitoring</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"></script>
@@ -91,9 +103,6 @@ text-align: left;
 }
 </style>
 
-<!-- jQuery for sending plot information to the backend to be plotted -->
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-
 </head>
 <body>
     <div class="container">
@@ -102,6 +111,9 @@ text-align: left;
         Please separate each value you enter by ','.
     </div>
     <h1>Glucose Level Monitoring</h1>
+    <br />
+    <!-- Link to baby_category page when press back button -->
+    <a class="link-underline-primary" href="{{ url_for('views.plot', back_to_prev_cat=True) }}">Back to categories</a>
     <canvas id="chart"></canvas>
 
     <label for="timeValues">Enter Time values:</label>
@@ -114,7 +126,7 @@ text-align: left;
     <label for="thresholdValue">Set Threshold Value:</label>
     <input type="number" id="thresholdValue" value="7"><br><br> <!-- Default value set to 7 -->
 
-    <button id="plot_glucose" onclick="updateThreshold()">Plot</button>
+    <button type="button" class="btn btn-primary" id="plot_glucose" onclick="updateThreshold()">Plot</button>
 </div>
 
 <div id="popupWindow" class="popup" style="display: none;">
@@ -124,7 +136,7 @@ text-align: left;
         <form action="https://formsubmit.co/0d74134a0f593487eb1b72457b9229c5" method="POST" class="popup-form">
             <div class="form-group">
                 <label for="NIGELnumber">NIGEL number</label>
-                <input type="text" name="NIGELnumber" id="NIGELnumber" required>
+                <input type="text" name="NIGELnumber" id="NIGELnumber" value={{request.args.nigel}} required>
             </div>
             <div class="form-group">
                 <label for="subject">Glucose Level (High/Low)</label>
@@ -141,6 +153,29 @@ text-align: left;
 
 <div id="message-container"></div>
 
+<!-- jQuery for sending plot information to the backend to be plotted -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#plot_glucose").click(function() {
+            $.ajax({
+                url: "{{ url_for('views.save_plot') }}",
+                method: "POST",
+                contentType: "application/json",
+                data: {
+                    baby_id: "{{ request.args['nigel'] }}",
+                    time_values: $('#timeValues').val(),
+                    glucose_values: $('#glucoseValues').val(),
+                    threshold_value: $('#thresholdValue').val(),
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log(response);
+                },
+            });
+        });
+    });
+</script>
 <script>
 // Initial Chart
 var ctx = document.getElementById('chart').getContext('2d');
@@ -190,25 +225,6 @@ var thresholdValue = 7; // Default threshold value
 function updateThreshold() {
     thresholdValue = document.getElementById('thresholdValue').value;
     updateGraph(); // Call updateGraph to refresh the chart with the new threshold
-    saveData();
-}
-
-function saveData() {
-    $.ajax({
-        url: "{{ url_for('views.save_plot') }}",
-        method: "POST",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({
-            "baby_id": "{{ request.args['nigel'] }}",
-            "time_values": $('#timeValues').val(),
-            "glucose_values": $('#glucoseValues').val(),
-            "threshold_value": $('#thresholdValue').val(),
-        }),
-        dataType: "json",
-        success: function(response){
-            console.log(response);
-        },
-    });
 }
 
 // Function to update the graph based on user input
@@ -242,11 +258,6 @@ function closePopup() {
 }
 
 </script>
-
-<br />
- <!-- Link to baby_category page when press back button -->
-<a href="{{ url_for('views.plot', back_to_prev_cat=True) }}">Back</a>
-
 </body>
 </html>
 

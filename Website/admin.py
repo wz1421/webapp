@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 
 from . import db
-from .models import User, UserCategory
+from .models import ActivityLog, User, UserCategory
 
 # Blueprint grouping administrator routes together
 admin = Blueprint('admin', __name__)
@@ -53,3 +53,25 @@ def sign_up_post():
         flash('Account created! Welcome.', category='success')
         return redirect(url_for("views.home"))
     return redirect(url_for("admin.sign_up"))
+
+@admin.route('/view-activity')
+@login_required
+def view_activity():
+    if current_user.category != UserCategory.admin:
+        return redirect(url_for("views.home"))
+    """ View activity logs. """
+    
+    records = ActivityLog.query.all()
+    new_records = []
+
+    for record in records:
+        new_records.append({
+            "user": User.query.filter_by(id=record.user_id).first(),
+            "nigel_number": record.baby_id,
+            "type": record.type.name,
+            "timestamp": record.timestamp.strftime("%d-%m-%Y, %H:%M:%S")
+        })
+    
+    print(new_records)
+
+    return render_template("view_activity.html", records=new_records)

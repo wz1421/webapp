@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 
 from . import db
-from .models import Baby, BabyCategory, GlucoseRecord, User, UserCategory, field_titles, baby_category_titles
+from .models import ActivityLog, ActivityCategory, Baby, BabyCategory, GlucoseRecord, User, UserCategory, field_titles, baby_category_titles
 
 # Blueprint for non-authentication-related routes
 views = Blueprint('views', __name__)
@@ -70,6 +70,8 @@ def review_info():
         'Medical History': {field_titles[k]: v for (k, v) in medical_history.items()},
     }
 
+    print(form_data["Medical History"])
+
     form_data["Medical History"][field_titles["category"]] = (
         baby_category_titles[form_data["Medical History"][field_titles["category"]]]
     )
@@ -87,11 +89,13 @@ def review_info():
         session.pop('baby_information', None)
         session.pop('medical_history', None)
 
-        new_baby = Baby(**combined_dict)
-
-        print("new baby:", new_baby)
-
-        db.session.add(new_baby)
+        db.session.add(Baby(**combined_dict))
+        db.session.add(ActivityLog(
+            user_id = current_user.id,
+            baby_id = combined_dict["nigel_number"],
+            type = ActivityCategory.register,
+            timestamp = datetime.now()
+        ))
         db.session.commit()
 
         return redirect(url_for('views.success'))
@@ -119,14 +123,49 @@ def plot():
     return render_template("plotplot.html")
 
 @views.route('/save-plot', methods=['POST'])
-@login_required
 def save_plot():
     """ Route that simply saves a plot to the database. This is done in the
      background using jQuery and AJAX. """
-    plot_data = request.form.to_dict()
+    print("REQUEST RECEIVED")
+    try:
+        plot_data = request.json
+    except:
+        plot_data = request.form
+
+    print(plot_data)
     db.session.add(GlucoseRecord(**plot_data))
+    db.session.add(ActivityLog(
+        user_id = current_user.id,
+        baby_id = plot_data["baby_id"],
+        type = ActivityCategory.record,
+        timestamp = datetime.now()
+    ))
     db.session.commit()
+    print("Saved:", GlucoseRecord.query.all())
     return "Successfully stored glucose record"
+
+@views.route('/view-records')
+@login_required
+def view_records():
+    """ View the records of the baby given in the URL args. """
+    
+    # Can assume the baby exists since this route is only accessed through a
+    # valid link for a specific baby
+    nigel_number = int(request.args["nigel"])
+    baby_data = Baby.query.filter_by(nigel_number=nigel_number).first().to_dict()
+
+    db.session.add(ActivityLog(
+        user_id = current_user.id,
+        baby_id = nigel_number,
+        type = ActivityCategory.view,
+        timestamp = datetime.now()
+    ))
+    db.session.commit()
+
+    records = GlucoseRecord.query.filter_by(baby_id=nigel_number).all()
+    records = [record.to_dict() for record in records]
+
+    return render_template("view_records.html", data=baby_data, titles=field_titles, records=records)
 
 @views.route('/baby-categories', methods=['GET','POST'])
 @login_required

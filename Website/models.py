@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from datetime import datetime
 
 import enum
 
@@ -29,9 +30,24 @@ class UserCategory(enum.Enum):
 
     def __str__(self):
         return '%s' % self.name
+    
+class ActivityCategory(enum.Enum):
+    record = 0
+    view = 1
+    register = 2
+
+    def __str__(self):
+        return '%s' % self.name
+
+# Abstract base class for the schema, allowing their objects to be converted
+# to dicts for processing later
+class Dictable(db.Model):
+    __abstract__ = True
+    def to_dict(self):
+        return {field.name:getattr(self, field.name) for field in self.__table__.c}
 
 # Database schema
-class User(db.Model, UserMixin):
+class User(Dictable, UserMixin):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -39,8 +55,10 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String, nullable=False)
     category = db.Column(db.Enum(UserCategory), nullable=False)
     babies = db.relationship("Baby", back_populates="doctor_in_charge")
+    activity = db.relationship("ActivityLog", back_populates="user")
 
-class Baby(db.Model):
+
+class Baby(Dictable):
     __tablename__ = "baby"
     id = db.Column(db.Integer, primary_key=True)
     nigel_number = db.Column(db.Integer, unique=True, nullable=False)
@@ -60,8 +78,9 @@ class Baby(db.Model):
     )
     doctor_in_charge = db.relationship("User", back_populates="babies")
     glucose_records = db.relationship("GlucoseRecord", back_populates="baby")
+    activity = db.relationship("ActivityLog", back_populates="baby")
 
-class GlucoseRecord(db.Model):
+class GlucoseRecord(Dictable):
     __tablename__ = "glucose_record"
     id = db.Column(db.Integer, primary_key=True)
     baby_id = db.Column(db.Integer, db.ForeignKey("baby.nigel_number"), nullable=False)
@@ -69,6 +88,19 @@ class GlucoseRecord(db.Model):
     glucose_values = db.Column(db.String, nullable=False)
     threshold_value = db.Column(db.Integer, nullable=False, server_default='7')
     baby = db.relationship("Baby", back_populates="glucose_records")
+    
+
+class ActivityLog(Dictable):
+    __tablename__ = "activity_log"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    baby_id = db.Column(db.Integer, db.ForeignKey("baby.nigel_number"), nullable=False)
+    type = db.Column(db.Enum(ActivityCategory), nullable=False)
+    timestamp = db.Column(db.DateTime(timezone=False), nullable=False)
+    user = db.relationship("User", back_populates="activity")
+    baby = db.relationship("Baby", back_populates="activity")
+
+
 
 # Mapping of form element names to pretty-printed titles
 field_titles = {
